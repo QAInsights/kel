@@ -4,6 +4,13 @@ default_language = "english"
 default_company_name = "OpenAI"
 copy_to_clipboard = true
 
+[style]
+# Supported colors: https://rich.readthedocs.io/en/stable/appendix/colors.html#appendix-colors
+response_color = "green"
+warning_color = "yellow"
+error_color = "red"
+info_color = "cyan"
+
 [stats]
 display_cost = true
 display_tokens = true

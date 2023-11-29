@@ -1,4 +1,5 @@
 import pyperclip
+from rich.console import Console
 
 
 def copy_to_clipboard(text):
@@ -18,3 +19,20 @@ def copy_to_clipboard(text):
     except Exception as e:
         print("Error copying to clipboard")
         print(e)
+
+
+def print_in_color(text, color):
+    """
+    Print in color
+    Args:
+        text:
+        color:
+
+    Returns:
+    :param color:
+    :param text:
+
+    """
+    console = Console(log_time=False)
+
+    console.log(text, style=color)

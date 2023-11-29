@@ -17,3 +17,9 @@ valid_anthropic_chat_models = [
     "claude-instant-1",
     "claude-2"
 ]
+
+emoji_info = ":speech_balloon:"
+emoji_time = ":clock3:"
+emoji_pencil = ":pencil:"
+emoji_error = ":x:"
+emoji_money = ":moneybag:"

@@ -196,3 +196,39 @@ def get_display_response_time():
 
     """
     return config.get("stats", {}).get("display_response_time", False)
+
+
+def get_response_color():
+    """
+    Get the response color
+    Returns:
+
+    """
+    return config.get("style", {}).get("response_color", "green")
+
+
+def get_warning_color():
+    """
+    Get the warning color
+    Returns:
+
+    """
+    return config.get("style", {}).get("warning_color", "yellow")
+
+
+def get_error_color():
+    """
+    Get the error color
+    Returns:
+
+    """
+    return config.get("style", {}).get("error_color", "red")
+
+
+def get_info_color():
+    """
+    Get the info color
+    Returns:
+
+    """
+    return config.get("style", {}).get("info_color", "cyan")

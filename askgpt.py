@@ -1,8 +1,10 @@
 import argparse
 import sys
-import pyperclip
+import time
+import asyncio
+from constants import *
 
-from openai import OpenAI
+from openai import AsyncOpenAI
 
 import get_configs as config
 from utils import copy_to_clipboard
@@ -14,6 +16,8 @@ class AICompany:
 
 
 class GPTModel:
+    thinking_emoji = "🤔"
+
     def __init__(self, model_name, model_api_key, model_endpoint, model_prompt, model_max_token, model_temperature):
         super(AICompany).__init__()
         self.model_api_key = model_api_key
@@ -24,9 +28,9 @@ class GPTModel:
         self.model_temperature = model_temperature
 
         # create a client when the class is instantiated
-        self.client = OpenAI(api_key=self.model_api_key)
+        self.client = AsyncOpenAI(api_key=self.model_api_key)
 
-    def ask_gpt(self, question=None, model=None, temperature=None, max_tokens=None):
+    async def ask_gpt(self, question=None, model=None, temperature=None, max_tokens=None):
         """
         Ask GPT
         Args:
@@ -47,21 +51,43 @@ class GPTModel:
             if max_tokens is None:
                 max_tokens = self.model_max_token
 
-            response = self.client.chat.completions.create(
-                model=model,
-                messages=[
-                    {"role": "system", "content": f"{config.get_openai_default_prompt()}"},
-                    {"role": "user", "content": f"{question}. You will respond in {config.get_response_language()}"}
-                ],
-                max_tokens=int(max_tokens),
-                temperature=float(temperature),
+            if model in valid_openai_chat_models:
+                start_time = time.time()
 
-            )
-            print(response.choices[0].message.content)
-            if config.get_copy_to_clipboard():
-                copy_to_clipboard(response.choices[0].message.content)
+                response = await self.client.chat.completions.create(
+                    model=model,
+                    messages=[
+                        {"role": "system", "content": f"{config.get_openai_default_prompt()}"},
+                        {"role": "user", "content": f"{question}. You will respond in {config.get_response_language()}"}
+                    ],
+                    max_tokens=int(max_tokens),
+                    temperature=float(temperature),
 
-            return response.choices[0].message.content
+                )
+                # Wait for the response
+                while True:
+                    print(f"Thinking... {GPTModel.thinking_emoji}")
+                    if response.choices[0].message.content != "":
+                        break
+                    GPTModel.thinking_emoji += " 🤔"
+
+                response_time = time.time() - start_time
+
+                print(f"Response: {response.choices[0].message.content}")
+
+                if config.get_display_response_time():
+                    print(f"Response time: {response_time:.2f} seconds")
+
+                if config.get_display_tokens():
+                    print(f"Total Consumed Tokens: {response.usage.total_tokens}")
+
+                if config.get_copy_to_clipboard():
+                    copy_to_clipboard(response.choices[0].message.content)
+
+                return response.choices[0].message.content, response_time
+            else:
+                print(f"Error: {model} is not a valid model name for {config.get_default_company_name()}.")
+                return f"Error: {model} is not a valid model name."
 
         except Exception as e:
             print(f"Error: {e}")
@@ -109,7 +135,7 @@ def get_user_inputs_from_cli():
     return args
 
 
-def main():
+async def main() -> None:
     """
     Main function
     Returns:
@@ -120,7 +146,7 @@ def main():
         print("Error: Company name is not set in the config file.")
         sys.exit(1)
 
-    if config.get_default_company_name() == "openai":
+    if config.get_default_company_name().lower() == "openai":
         openai = GPTModel(
             model_name=config.get_openai_default_model(),
             model_api_key=config.get_openai_key(),
@@ -130,7 +156,7 @@ def main():
             model_temperature=f"{config.get_openai_temperature()}"
         )
         print(question, model, temperature, max_tokens)
-        openai.ask_gpt(question, model, temperature, max_tokens)
+        await openai.ask_gpt(question, model, temperature, max_tokens)
 
     if config.get_default_company_name() == "anthropic":
         print("Anthropic")
@@ -138,4 +164,4 @@ def main():
 
 
 if __name__ == '__main__':
-    main()
+    asyncio.run(main())

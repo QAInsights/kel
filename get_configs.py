@@ -187,3 +187,12 @@ def get_display_tokens():
 
     """
     return config.get("stats", {}).get("display_tokens", False)
+
+
+def get_display_response_time():
+    """
+    Get the display response time
+    Returns:
+
+    """
+    return config.get("stats", {}).get("display_response_time", False)

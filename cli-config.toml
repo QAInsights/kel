@@ -1,14 +1,19 @@
 [general]
 protocol = "https"
 default_language = "english"
-default_company_name = "openai"
+default_company_name = "OpenAI"
 copy_to_clipboard = true
 
+[stats]
+display_cost = true
+display_tokens = true
+display_response_time = true
+
 [companies]
-supported_companies = ["openai", "anthropic"]
+supported_companies = ["OpenAI", "Anthropic"]
 
 [openai]
-default_openai_model_name = "gpt-4"
+default_openai_model_name = "gpt-3.5-turbo-1106"
 default_openai_org_name = ""
 default_openai_endpoint = "api.openai.com"
 default_openai_uri = "/v1/chat/completions"
@@ -26,10 +31,12 @@ default_anthropic_model_name = "claude-2.1"
 default_anthropic_endpoint = "api.anthropic.com"
 default_anthropic_uri = "/v1/chat/completions"
 
-default_anthropic_prompt = "You are an expert in the field of software engineering."
+default_anthropic_prompt = """
+You are an expert in the field of software engineering and command line tools.
+If I ask for the commands, please give me only the commands which is enclosed in
+single or double quotes.
+If I ask for the description, please give me the description.
+"""
 
 
-[stats]
-display_cost = true
-display_tokens = true
 

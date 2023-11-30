@@ -49,6 +49,13 @@ def get_user_inputs_from_cli():
         help='Max tokens e.g 150',
         required=False
     )
+    parser.add_argument(
+        '-f',
+        '--file',
+        type=str,
+        help='File path',
+        required=False
+    )
 
     args = parser.parse_args()
     return args

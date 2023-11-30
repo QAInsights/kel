@@ -135,6 +135,15 @@ def get_openai_temperature():
     return config.get("openai", {}).get("default_openai_temperature", 0.9)
 
 
+def get_enable_openai_assistant():
+    """
+    Get the enable openai assistant
+    Returns:
+
+    """
+    return config.get("openai", {}).get("enable_openai_assistant", False)
+
+
 # Anthropic Configs
 def get_anthropic_key():
     """

@@ -29,7 +29,7 @@ class GPTModel:
         # create a client when the class is instantiated
         self.client = AsyncOpenAI(api_key=self.model_api_key)
 
-    async def ask_gpt(self, question=None, prompt=None, model=None, temperature=None, max_tokens=None):
+    async def ask_gpt(self, question=None, prompt=None, model=None, temperature=None, max_tokens=None, file=None):
         """
         Ask GPT
         Args:
@@ -75,7 +75,8 @@ class GPTModel:
                 print_in_color(f"{emoji_info} {response.choices[0].message.content}", config.get_response_color())
 
                 if config.get_display_response_time():
-                    print_in_color(f"{emoji_time} Response Time: {response_time:.2f} seconds", config.get_info_color(), end=" | ")
+                    print_in_color(f"{emoji_time} Response Time: {response_time:.2f} seconds", config.get_info_color(),
+                                   end=" | ")
 
                 if config.get_display_tokens():
                     print_in_color(f"{emoji_money} Total Consumed Tokens: {response.usage.total_tokens}",

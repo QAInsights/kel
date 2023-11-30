@@ -1,9 +1,25 @@
 import os
 import sys
-
+from constants import app_name
 import toml
 
-config = toml.load("cli-config.toml")
+
+def get_config_file_location():
+    """
+    Get the config file location
+    Returns:
+
+    """
+    config_file = os.getenv("KEL_CONFIG_FILE")
+    if config_file:
+        return config_file
+    elif os.path.exists(f"~/.{app_name}/config.toml"):
+        return os.path.expanduser("~/.config/kel/config.toml")
+    else:
+        return "./config.toml"
+
+
+config = toml.load(get_config_file_location())
 
 
 def get_default_company_name():

@@ -1,13 +1,11 @@
-import argparse
 import sys
 import time
-import asyncio
-
-from constants import *
 
 from openai import AsyncOpenAI
 
 import get_configs as config
+from constants import *
+from inputs import get_user_inputs_from_cli
 from utils import copy_to_clipboard, print_in_color
 
 
@@ -76,7 +74,7 @@ class GPTModel:
                 print_in_color(f"{emoji_info} {response.choices[0].message.content}", config.get_response_color())
 
                 if config.get_display_response_time():
-                    print_in_color(f"{emoji_time} Response time: {response_time:.2f} seconds", config.get_info_color())
+                    print_in_color(f"{emoji_time} Response Time: {response_time:.2f} seconds", config.get_info_color())
 
                 if config.get_display_tokens():
                     print_in_color(f"{emoji_money} Total Consumed Tokens: {response.usage.total_tokens}",
@@ -97,47 +95,6 @@ class GPTModel:
             return f"Error: {e}"
 
 
-def get_user_inputs_from_cli():
-    """
-    Get user inputs
-    Returns:
-
-    """
-    # Parse the arguments
-    parser = argparse.ArgumentParser(
-        prog='Kel',
-        description='Ask Kel. Your CLI based AI assistant.',
-        epilog='Thank you for using Kel!'
-    )
-    parser.add_argument(
-        'question',
-        help='Your question to Kel: ',
-        type=str,
-    )
-    parser.add_argument(
-        '-m',
-        '--model',
-        help='Model name: ',
-        required=False
-    )
-    parser.add_argument(
-        '-t',
-        '--temperature',
-        help='Temperature: ',
-        required=False
-    )
-    parser.add_argument(
-        '-mt',
-        '--max_tokens',
-        help='Max tokens: ',
-        required=False
-    )
-
-    args = parser.parse_args()
-    print(type(args))
-    return args
-
-
 async def main() -> None:
     """
     Main function
@@ -145,6 +102,7 @@ async def main() -> None:
 
     """
     question, model, temperature, max_tokens = vars(get_user_inputs_from_cli()).values()
+
     if config.get_default_company_name() == "" or config.get_default_company_name() is None:
         print("Error: Company name is not set in the config file.")
         sys.exit(1)
@@ -164,7 +122,3 @@ async def main() -> None:
     if config.get_default_company_name() == "anthropic":
         print("Anthropic")
         # to do
-
-
-if __name__ == '__main__':
-    asyncio.run(main())

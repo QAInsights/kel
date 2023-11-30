@@ -53,8 +53,11 @@ class GPTModel:
             if prompt is None:
                 prompt = config.get_openai_default_prompt()
 
+            print_in_color(f"Thinking {GPTModel.emoji_thinking}.", config.get_info_color(), end="")
+
             if model in valid_openai_chat_models:
                 start_time = time.time()
+                print_in_color(".", config.get_info_color(), end="")
 
                 response = await self.client.chat.completions.create(
                     model=model,
@@ -65,19 +68,14 @@ class GPTModel:
                     max_tokens=int(max_tokens),
                     temperature=float(temperature),
                 )
-                # Wait for the response
-                while True:
-                    print_in_color(f"Thinking... {GPTModel.emoji_thinking}", config.get_info_color())
-                    if response is not None:
-                        break
-                    GPTModel.emoji_thinking += GPTModel.emoji_thinking
+                print_in_color(".", config.get_info_color())
 
                 response_time = time.time() - start_time
 
                 print_in_color(f"{emoji_info} {response.choices[0].message.content}", config.get_response_color())
 
                 if config.get_display_response_time():
-                    print_in_color(f"{emoji_time} Response Time: {response_time:.2f} seconds", config.get_info_color())
+                    print_in_color(f"{emoji_time} Response Time: {response_time:.2f} seconds", config.get_info_color(), end=" | ")
 
                 if config.get_display_tokens():
                     print_in_color(f"{emoji_money} Total Consumed Tokens: {response.usage.total_tokens}",

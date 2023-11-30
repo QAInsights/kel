@@ -29,13 +29,14 @@ class GPTModel:
         # create a client when the class is instantiated
         self.client = AsyncOpenAI(api_key=self.model_api_key)
 
-    async def ask_gpt(self, question=None, model=None, temperature=None, max_tokens=None):
+    async def ask_gpt(self, question=None, prompt=None, model=None, temperature=None, max_tokens=None):
         """
         Ask GPT
         Args:
             question:
 
         Returns:
+        :param prompt:
         :param max_tokens:
         :param temperature:
         :param model:
@@ -49,6 +50,8 @@ class GPTModel:
                 temperature = self.model_temperature
             if max_tokens is None:
                 max_tokens = self.model_max_token
+            if prompt is None:
+                prompt = config.get_openai_default_prompt()
 
             if model in valid_openai_chat_models:
                 start_time = time.time()
@@ -56,7 +59,7 @@ class GPTModel:
                 response = await self.client.chat.completions.create(
                     model=model,
                     messages=[
-                        {"role": "system", "content": f"{config.get_openai_default_prompt()}"},
+                        {"role": "system", "content": f"{prompt}"},
                         {"role": "user", "content": f"{question}. You will respond in {config.get_response_language()}"}
                     ],
                     max_tokens=int(max_tokens),
@@ -101,7 +104,8 @@ async def main() -> None:
     Returns:
 
     """
-    question, model, temperature, max_tokens = vars(get_user_inputs_from_cli()).values()
+
+    question, prompt, model, temperature, max_tokens = vars(get_user_inputs_from_cli()).values()
 
     if config.get_default_company_name() == "" or config.get_default_company_name() is None:
         print("Error: Company name is not set in the config file.")
@@ -116,8 +120,8 @@ async def main() -> None:
             model_max_token=f"{config.get_openai_max_tokens()}",
             model_temperature=f"{config.get_openai_temperature()}"
         )
-        print(question, model, temperature, max_tokens)
-        await openai.ask_gpt(question, model, temperature, max_tokens)
+
+        await openai.ask_gpt(question, prompt, model, temperature, max_tokens)
 
     if config.get_default_company_name() == "anthropic":
         print("Anthropic")

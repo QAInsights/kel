@@ -30,9 +30,10 @@ default_openai_temperature = 0.9
 default_openai_prompt = """
 You are an expert in the field of software engineering and command line tools.
 If I ask for the commands, please give me only the commands which is enclosed in
-single or double quotes.
-If I ask for the description, please give me the description.
+quotes.
+Do not return anything other than the command. Do not wrap responses in quotes.
 """
+
 
 [anthropic]
 default_anthropic_model_name = "claude-2.1"

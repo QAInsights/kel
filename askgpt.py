@@ -7,7 +7,6 @@ import get_configs as config
 from constants import *
 from inputs import get_user_inputs_from_cli
 from utils import copy_to_clipboard, print_in_color
-from assistant import call_assistant
 
 
 class AICompany:
@@ -46,63 +45,56 @@ class GPTModel:
 
         """
         try:
-            print(assistant, file)
-            if assistant is None and file is None:
-                if model is None:
-                    model = self.model_name
-                if temperature is None:
-                    temperature = self.model_temperature
-                if max_tokens is None:
-                    max_tokens = self.model_max_token
-                if prompt is None:
-                    prompt = config.get_openai_default_prompt()
 
-                print_in_color(f"Thinking {GPTModel.emoji_thinking}.", config.get_info_color(), end="")
+            if model is None:
+                model = self.model_name
+            if temperature is None:
+                temperature = self.model_temperature
+            if max_tokens is None:
+                max_tokens = self.model_max_token
+            if prompt is None:
+                prompt = config.get_openai_default_prompt()
 
-                if model in valid_openai_chat_models:
-                    start_time = time.time()
-                    print_in_color(".", config.get_info_color(), end="")
+            print_in_color(f"Thinking {GPTModel.emoji_thinking}.", config.get_info_color(), end="")
 
-                    response = await self.client.chat.completions.create(
-                        model=model,
-                        messages=[
-                            {"role": "system", "content": f"{prompt}"},
-                            {"role": "user",
-                             "content": f"{question}. You will respond in {config.get_response_language()}"}
-                        ],
-                        max_tokens=int(max_tokens),
-                        temperature=float(temperature),
-                    )
-                    print_in_color(".", config.get_info_color())
+            if model in valid_openai_chat_models:
+                start_time = time.time()
+                print_in_color(".", config.get_info_color(), end="")
 
-                    response_time = time.time() - start_time
+                response = await self.client.chat.completions.create(
+                    model=model,
+                    messages=[
+                        {"role": "system", "content": f"{prompt}"},
+                        {"role": "user",
+                         "content": f"{question}. You will respond in {config.get_response_language()}"}
+                    ],
+                    max_tokens=int(max_tokens),
+                    temperature=float(temperature),
+                )
+                print_in_color(".", config.get_info_color())
 
-                    print_in_color(f"{emoji_info} {response.choices[0].message.content}", config.get_response_color())
+                response_time = time.time() - start_time
 
-                    if config.get_display_response_time():
-                        print_in_color(f"{emoji_time} Response Time: {response_time:.2f} seconds",
-                                       config.get_info_color(),
-                                       end=" | ")
+                print_in_color(f"{emoji_info} {response.choices[0].message.content}", config.get_response_color())
 
-                    if config.get_display_tokens():
-                        print_in_color(f"{emoji_money} Total Consumed Tokens: {response.usage.total_tokens}",
-                                       config.get_info_color())
+                if config.get_display_response_time():
+                    print_in_color(f"{emoji_time} Response Time: {response_time:.2f} seconds",
+                                   config.get_info_color(),
+                                   end=" | ")
 
-                    if config.get_copy_to_clipboard():
-                        copy_to_clipboard(response.choices[0].message.content)
+                if config.get_display_tokens():
+                    print_in_color(f"{emoji_money} Total Consumed Tokens: {response.usage.total_tokens}",
+                                   config.get_info_color())
 
-                    return response.choices[0].message.content, response_time
-                else:
-                    print_in_color(
-                        f"{emoji_error} Error: {model} is not a valid model name for {config.get_default_company_name()}.",
-                        config.get_warning_color())
-                    return f"Error: {model} is not a valid model name."
+                if config.get_copy_to_clipboard():
+                    copy_to_clipboard(response.choices[0].message.content)
+
+                return response.choices[0].message.content, response_time
             else:
-                if file is None:
-                    print_in_color(f"Please upload a file to analyze.", config.get_error_color(), end="")
-
-                call_assistant(assistant, file)
-
+                print_in_color(
+                    f"{emoji_error} Error: {model} is not a valid model name for {config.get_default_company_name()}.",
+                    config.get_warning_color())
+                return f"Error: {model} is not a valid model name."
 
         except Exception as e:
             print(f"Error: {e}")
@@ -116,7 +108,7 @@ async def main() -> None:
 
     """
 
-    question, prompt, model, temperature, max_tokens, assistant, file = vars(get_user_inputs_from_cli()).values()
+    question, prompt, model, temperature, max_tokens = vars(get_user_inputs_from_cli()).values()
 
     if config.get_default_company_name() == "" or config.get_default_company_name() is None:
         print("Error: Company name is not set in the config file.")
@@ -132,7 +124,7 @@ async def main() -> None:
             model_temperature=f"{config.get_openai_temperature()}"
         )
 
-        await openai.ask_gpt(question, prompt, model, temperature, max_tokens, assistant, file)
+        await openai.ask_gpt(question, prompt, model, temperature, max_tokens)
 
     if config.get_default_company_name() == "anthropic":
         print("Anthropic")

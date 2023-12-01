@@ -50,6 +50,21 @@ def get_user_inputs_from_cli():
         required=False
     )
 
+    args = parser.parse_args()
+    return args
+
+
+def get_assistant_inputs():
+    """
+    Get the assistant info
+    :return:
+    """
+    # Parse the arguments
+    parser = argparse.ArgumentParser(
+        prog='Kel',
+        description='Ask Kel. Your CLI based AI assistant.',
+        epilog='Thank you for using Kel!'
+    )
     parser.add_argument(
         '-a',
         '--assistant',

@@ -49,6 +49,15 @@ def get_user_inputs_from_cli():
         help='Max tokens e.g 150',
         required=False
     )
+
+    parser.add_argument(
+        '-a',
+        '--assistant',
+        type=str,
+        help='Assistant name e.g PerfGPT',
+        required=False
+    )
+
     parser.add_argument(
         '-f',
         '--file',

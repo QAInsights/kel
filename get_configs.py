@@ -144,6 +144,48 @@ def get_enable_openai_assistant():
     return config.get("openai", {}).get("enable_openai_assistant", False)
 
 
+def get_openai_assistant_model_name():
+    """
+    Get the openai assistant model name
+    Returns:
+
+    """
+    return config.get("openai", {}).get("openai_assistant_model_name", "gpt-4-1106-preview")
+
+
+def get_openai_assistant_instructions():
+    """
+    Get the openai assistant instructions
+    Returns:
+
+    """
+    return config.get("openai", {}).get("openai_assistant_instructions",
+                                        "Analyse the file and answer questions about performance stats")
+
+
+def get_openai_assistant_prompt():
+    """
+    Get the openai assistant prompt
+    Returns:
+
+    """
+    return config.get("openai", {}).get("openai_assistant_prompt",
+                                        """
+                                        Everything should be in a table format so that I can understand it.
+                                        Do not give detailed explanation. If you find any bottleneck, please share that as well.
+                                        """
+                                        )
+
+
+def get_openai_delete_assistant_at_exit():
+    """
+    Get the openai delete assistant at exit
+    Returns:
+
+    """
+    return config.get("openai", {}).get("delete_openai_assistant_at_exit", True)
+
+
 # Anthropic Configs
 def get_anthropic_key():
     """

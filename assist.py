@@ -23,14 +23,15 @@ thread = client.beta.threads.create()
 message = client.beta.threads.messages.create(
     thread_id=thread.id,
     role="user",
-    content="""
-    Give me the 95th elapsed time percentile, maximum elapsed time, and minimum elapsed time.
-    Give me unique transactions names, and the number of transactions.
-    Present the number of transactions, and the number of transactions with errors.
-    Also give HTTP error codes, and the number of transactions with HTTP error codes.
-    Everything should be in a table format so that I can understand it.  
-    Do not give detailed explanation. If you find any bottleneck, please share that as well. 
-    """,
+    content="Give me the 95th elapsed time percentile, maximum elapsed time, and minimum elapsed time.",
+    # content="""
+    # Give me the 95th elapsed time percentile, maximum elapsed time, and minimum elapsed time.
+    # Give me unique transactions names, and the number of transactions.
+    # Present the number of transactions, and the number of transactions with errors.
+    # Also give HTTP error codes, and the number of transactions with HTTP error codes.
+    # Everything should be in a table format so that I can understand it.
+    # Do not give detailed explanation. If you find any bottleneck, please share that as well.
+    # """,
 )
 
 run = client.beta.threads.runs.create(
@@ -49,5 +50,10 @@ messages = client.beta.threads.messages.list(
     thread_id=thread.id,
 )
 
+print(f"M: {messages.data[-1]}")
+print("M2: " + messages.data[-1].content[-1].text.value)
+
 for message in reversed(messages.data):
-    print(message.content[0].text.value)
+    if message.role != "user":
+        print("System message " + message.content[-1].text.value)
+    # print("Each message " + message.content[-1].text.value)

@@ -28,6 +28,34 @@ class Assistant:
         )
 
 
+def create_a_thread():
+    return client.beta.threads.create()
+
+
+def add_message_to_thread(thread_id, content):
+    return client.beta.threads.messages.create(
+        thread_id=thread_id,
+        role="user",
+        content=content,
+    )
+
+
+def start_run(thread_id, assistant_id):
+    return client.beta.threads.runs.create(
+        thread_id=thread_id,
+        assistant_id=assistant_id,
+    )
+
+
+def get_messages_and_print(thread_id):
+    messages = client.beta.threads.messages.list(
+        thread_id=thread_id,
+    )
+    for message in reversed(messages.data):
+        if message.role != "user":
+            print_in_color("Assistant: " + message.content[-1].text.value, config.get_info_color())
+
+
 def summon_assistant():
     assistant_name, file = vars(get_assistant_inputs()).values()
 
@@ -35,28 +63,20 @@ def summon_assistant():
     assistant = Assistant(assistant_name, file)
     get_user_question = input("Enter your question: ")
 
+    thread = create_a_thread()
+    print(f"Thread id: {thread.id}")
+
     while get_user_question != ":q" or get_user_question != ":quit":
         if get_user_question == ":q" or get_user_question == ":quit":
             print_in_color("Exiting chat mode", config.get_info_color())
             break
 
-        # Create a thread
-        thread = client.beta.threads.create()
+        message = add_message_to_thread(thread.id, get_user_question)
+        print(f"Message id: {message.id}")
 
-        # Create a message
-        message = client.beta.threads.messages.create(
-            thread_id=thread.id,
-            role="user",
-            content=get_user_question,
-        )
+        run = start_run(thread.id, assistant.assistant.id)
+        print(f"Run id: {run.id} | Run status: {run.status}")
 
-        # Create a run
-        run = client.beta.threads.runs.create(
-            thread_id=thread.id,
-            assistant_id=assistant.assistant.id,
-        )
-
-        # Wait for the run to complete
         while run.status != "completed":
             run = client.beta.threads.runs.retrieve(
                 thread_id=thread.id,
@@ -64,16 +84,5 @@ def summon_assistant():
             )
             time.sleep(1)
 
-        # List the messages
-        messages = client.beta.threads.messages.list(
-            thread_id=thread.id,
-        )
-
-        # Print the messages
-        for message in reversed(messages.data):
-            print(message.content[0].text.value)
-
+        get_messages_and_print(thread.id)
         get_user_question = input("Enter your question: ")
-
-
-

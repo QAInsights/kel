@@ -4,6 +4,7 @@ import time
 from inputs import get_assistant_inputs
 
 from openai import OpenAI
+from rich.progress import Progress
 
 import get_configs as config
 from utils import print_in_color
@@ -47,12 +48,13 @@ def start_run(thread_id, assistant_id):
     )
 
 
-def get_messages_and_print(thread_id):
+def get_messages_and_print(thread_id, run_id):
     messages = client.beta.threads.messages.list(
         thread_id=thread_id,
     )
-    for message in reversed(messages.data):
-        if message.role != "user":
+
+    for message in reversed(messages.data[:-1]):
+        if message.role != "user" and message.run_id == run_id:
             print_in_color("Assistant: " + message.content[-1].text.value, config.get_info_color())
 
 
@@ -61,10 +63,10 @@ def summon_assistant():
 
     print_in_color(f"Summoning an assistant...", config.get_info_color())
     assistant = Assistant(assistant_name, file)
-    get_user_question = input("Enter your question: ")
+    get_user_question = input("Ask `Kel`: ")
 
     thread = create_a_thread()
-    print(f"Thread id: {thread.id}")
+    # print(f"Thread id: {thread.id}")
 
     while get_user_question != ":q" or get_user_question != ":quit":
         if get_user_question == ":q" or get_user_question == ":quit":
@@ -72,17 +74,25 @@ def summon_assistant():
             break
 
         message = add_message_to_thread(thread.id, get_user_question)
-        print(f"Message id: {message.id}")
+        # print(f"Message id: {message.id}")
 
         run = start_run(thread.id, assistant.assistant.id)
-        print(f"Run id: {run.id} | Run status: {run.status}")
+        # print(f"Run id: {run.id} | Run status: {run.status}")
 
-        while run.status != "completed":
-            run = client.beta.threads.runs.retrieve(
-                thread_id=thread.id,
-                run_id=run.id
-            )
-            time.sleep(1)
+        with Progress(transient=True) as progress:
+            task = progress.add_task("[cyan]Crunching...", total=100)
 
-        get_messages_and_print(thread.id)
-        get_user_question = input("Enter your question: ")
+            while not progress.finished:
+                while run.status != "completed":
+                    run = client.beta.threads.runs.retrieve(
+                        thread_id=thread.id,
+                        run_id=run.id
+                    )
+                    time.sleep(1)
+                    if run.status == "completed":
+                        progress.update(task, advance=100)
+                        break
+                    progress.update(task, advance=1)
+
+        get_messages_and_print(thread.id, run.id)
+        get_user_question = input("Ask `Kel`: ")

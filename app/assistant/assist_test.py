@@ -6,7 +6,7 @@ from openai import OpenAI
 client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 
 file = client.files.create(
-    file=open("results.csv", "rb"),
+    file=open("../../results.csv", "rb"),
     purpose='assistants'
 )
 

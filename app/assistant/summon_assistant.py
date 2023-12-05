@@ -1,13 +1,13 @@
 import os
 import time
 
-from inputs import get_assistant_inputs
+from app.inputs.inputs import get_assistant_inputs
 
 from openai import OpenAI
 from rich.progress import Progress
 
-import get_configs as config
-from utils import print_in_color
+from app.config import get_configs as config
+from app.utils.utils import print_in_color
 
 
 class Assistant:

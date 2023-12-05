@@ -3,10 +3,10 @@ import time
 
 from openai import AsyncOpenAI
 
-import get_configs as config
-from constants import *
-from inputs import get_user_inputs_from_cli
-from utils import copy_to_clipboard, print_in_color
+from app.config import get_configs as config
+from app.constants.constants import *
+from app.inputs.inputs import get_user_inputs_from_cli
+from app.utils.utils import copy_to_clipboard, print_in_color
 
 
 class AICompany:

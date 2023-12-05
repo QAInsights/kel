@@ -1,6 +1,6 @@
 import os
 import sys
-from constants import app_name
+from app.constants.constants import app_name
 import toml
 
 
@@ -11,12 +11,15 @@ def get_config_file_location():
 
     """
     config_file = os.getenv("KEL_CONFIG_FILE")
-    if config_file:
-        return config_file
-    elif os.path.exists(f"~/.{app_name}/config.toml"):
-        return os.path.expanduser("~/.config/kel/config.toml")
-    else:
-        return "./config.toml"
+    try:
+        if config_file:
+            return config_file
+        elif os.path.exists(f"~/.{app_name}/config.toml"):
+            return os.path.expanduser("~/.config/kel/config.toml")
+        else:
+            return "./config.toml"
+    except Exception as e:
+        sys.exit(f"Error: {e}")
 
 
 config = toml.load(get_config_file_location())

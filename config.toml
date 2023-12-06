@@ -45,6 +45,11 @@ Keep the answers short and simple unless I ask for a detailed explanation.
 openai_assistant_prompt = """
 Do not give detailed explanation. If you find any bottleneck, please share that as well.
 """
+openai_assistant_choice_1 = "Give me min, max, 95 percentile, 99 percentile elapsed or response time in a table format."
+openai_assistant_choice_2 = "Analyze the data and give me the bottleneck in a simple sentence."
+openai_assistant_choice_3 = "Give me the passed and failed transactions in a table format."
+openai_assistant_choice_4 = "Give me the HTTP response code split by transaction in a table format."
+
 openai_delete_assistant_at_exit = true
 
 

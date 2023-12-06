@@ -67,6 +67,14 @@ def summon_assistant():
     assistant_name, file = vars(get_assistant_inputs()).values()
 
     print_in_color(f"Summoning an assistant...", config.get_info_color())
+    print_in_color(f"""
+            Not sure what to `Kel`? Try one of these:
+            1: {config.get_openai_assistant_choices()[0]},
+            2: {config.get_openai_assistant_choices()[1]},
+            3: {config.get_openai_assistant_choices()[2]},
+            4: {config.get_openai_assistant_choices()[3]},
+    """, config.get_info_color())
+
     assistant = Assistant(assistant_name, file)
     get_user_question = input("Ask `Kel`: ")
 
@@ -78,11 +86,27 @@ def summon_assistant():
             print_in_color("Exiting chat mode", config.get_info_color())
             break
 
-        message = assistant.add_message_to_thread(thread.id, get_user_question)
-        # print(f"Message id: {message.id}")
+        choices = {
+            "1": config.get_openai_assistant_choices()[0],
+            "2": config.get_openai_assistant_choices()[1],
+            "3": config.get_openai_assistant_choices()[2],
+            "4": config.get_openai_assistant_choices()[3],
+        }
 
-        run = assistant.start_run(thread.id, assistant.assistant.id)
-        # print(f"Run id: {run.id} | Run status: {run.status}")
+        if int(get_user_question.strip()) not in choices:
+            print_in_color("Invalid choice. Please try again.", config.get_warning_color())
+            get_user_question = input("Ask `Kel`: ")
+            continue
+
+        if int(get_user_question.strip()) in choices:
+            assistant.add_message_to_thread(thread.id, choices[get_user_question.strip()])
+            run = assistant.start_run(thread.id, assistant.assistant.id)
+
+        else:
+            message = assistant.add_message_to_thread(thread.id, get_user_question)
+            # print(f"Message id: {message.id}")
+            run = assistant.start_run(thread.id, assistant.assistant.id)
+            # print(f"Run id: {run.id} | Run status: {run.status}")
 
         with Progress(transient=True) as progress:
             task = progress.add_task("[cyan]Crunching...", total=100)

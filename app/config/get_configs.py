@@ -163,7 +163,7 @@ def get_openai_assistant_instructions():
 
     """
     return config.get("openai_assistant", {}).get("openai_assistant_instructions",
-                                        "Analyse the file and answer questions about performance stats")
+                                                  "Analyse the file and answer questions about performance stats")
 
 
 def get_openai_assistant_prompt():
@@ -173,11 +173,40 @@ def get_openai_assistant_prompt():
 
     """
     return config.get("openai_assistant", {}).get("openai_assistant_prompt",
-                                        """
+                                                  """
                                         Everything should be in a table format so that I can understand it.
                                         Do not give detailed explanation. If you find any bottleneck, please share that as well.
                                         """
-                                        )
+                                                  )
+
+
+def get_openai_assistant_choices():
+    """
+    Get the openai assistant choices
+    :return:
+    """
+    try:
+        openai_assistant_choices = [
+            config.get("openai_assistant", {}).get(f"openai_assistant_choice_{choice}")
+            for choice in range(1, 5)
+            if config.get("openai_assistant", {}).get(f"openai_assistant_choice_{choice}") is not None
+        ]
+
+        if len(openai_assistant_choices) != 4:
+            sys.exit(f"""
+    OpenAI Assistant choices are not properly set in the config file. It must have four choices.
+    Please check the config file at {get_config_file_location()}.
+                """)
+
+        return openai_assistant_choices
+
+    except Exception as e:
+        print(f"""
+    OpenAI Assistant choices are not properly set in the config file. It must have four choices.
+    Please check the config file at {get_config_file_location()}.
+    Error: {e}
+            """)
+        sys.exit(f"Error: {e}")
 
 
 def get_openai_delete_assistant_at_exit():

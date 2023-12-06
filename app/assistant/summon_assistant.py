@@ -68,14 +68,16 @@ class Assistant:
 def summon_assistant():
     assistant_name, file = vars(get_assistant_inputs()).values()
 
-    print_in_color(f"Summoning an assistant...", config.get_info_color())
+    print_in_color("Summoning an assistant...", config.get_info_color())
     print_in_color(f"""    
-Not sure what to `Kel`? Try one of these:
+Not sure what to `Kel`? Try one of these choices:
 
 1: {config.get_openai_assistant_choices()[0]}
 2: {config.get_openai_assistant_choices()[1]}
 3: {config.get_openai_assistant_choices()[2]}
-4: {config.get_openai_assistant_choices()[3]}            
+4: {config.get_openai_assistant_choices()[3]}   
+
+To exit, type `:q` or `:quit`.         
 """, config.get_info_color())
 
     assistant = Assistant(assistant_name, file)

@@ -101,7 +101,7 @@ class GPTModel:
             return f"Error: {e}"
 
 
-async def main() -> None:
+async def gpt() -> None:
     """
     Main function
     Returns:

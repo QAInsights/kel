@@ -3,6 +3,8 @@ import sys
 from app.constants.constants import app_name
 import toml
 
+from app.utils.utils import print_in_color
+
 
 def get_config_file_location():
     """
@@ -15,14 +17,22 @@ def get_config_file_location():
         if config_file:
             return config_file
         elif os.path.exists(f"~/.{app_name}/config.toml"):
-            return os.path.expanduser("~/.config/kel/config.toml")
+            return os.path.expanduser(f"~/.config/{app_name}/config.toml")
         else:
             return "./config.toml"
     except Exception as e:
-        sys.exit(f"Error: {e}")
+        print_in_color(f"Error: {e}", get_error_color())
+        sys.exit(1)
 
 
-config = toml.load(get_config_file_location())
+try:
+    config = toml.load(get_config_file_location())
+except toml.TomlDecodeError as e:
+    print(f"Invalid TOML file: {e}")
+    sys.exit(1)
+except Exception as e:
+    print(f"Error: {e}")
+    sys.exit(1)
 
 
 def get_default_company_name():

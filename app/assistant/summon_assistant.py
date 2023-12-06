@@ -1,5 +1,6 @@
 import os
 import time
+import random
 
 from app.inputs.inputs import get_assistant_inputs
 
@@ -8,6 +9,7 @@ from rich.progress import Progress
 
 from app.config import get_configs as config
 from app.utils.utils import print_in_color
+from app.constants.constants import openai_response_prefix, openai_assistant_prefix, openai_user_prefix, exit_message
 
 
 class Assistant:
@@ -52,7 +54,7 @@ class Assistant:
 
         for message in reversed(messages.data[:-1]):
             if message.role != "user" and message.run_id == run_id:
-                print_in_color("Assistant: " + message.content[-1].text.value, config.get_info_color())
+                print_in_color(f"{openai_assistant_prefix}" + message.content[-1].text.value, config.get_info_color())
 
     def delete_assistant(self):
         if config.get_openai_delete_assistant_at_exit():
@@ -67,39 +69,40 @@ def summon_assistant():
     assistant_name, file = vars(get_assistant_inputs()).values()
 
     print_in_color(f"Summoning an assistant...", config.get_info_color())
-    print_in_color(f"""
-            Not sure what to `Kel`? Try one of these:
-            1: {config.get_openai_assistant_choices()[0]},
-            2: {config.get_openai_assistant_choices()[1]},
-            3: {config.get_openai_assistant_choices()[2]},
-            4: {config.get_openai_assistant_choices()[3]},
-    """, config.get_info_color())
+    print_in_color(f"""    
+Not sure what to `Kel`? Try one of these:
+
+1: {config.get_openai_assistant_choices()[0]}
+2: {config.get_openai_assistant_choices()[1]}
+3: {config.get_openai_assistant_choices()[2]}
+4: {config.get_openai_assistant_choices()[3]}            
+""", config.get_info_color())
 
     assistant = Assistant(assistant_name, file)
-    get_user_question = input("Ask `Kel`: ")
+    get_user_question = input(f"{openai_user_prefix}")
 
     thread = assistant.create_a_thread()
     # print(f"Thread id: {thread.id}")
 
+    choices = {
+        1: config.get_openai_assistant_choices()[0],
+        2: config.get_openai_assistant_choices()[1],
+        3: config.get_openai_assistant_choices()[2],
+        4: config.get_openai_assistant_choices()[3],
+    }
+
     while get_user_question != ":q" or get_user_question != ":quit":
         if get_user_question == ":q" or get_user_question == ":quit":
-            print_in_color("Exiting chat mode", config.get_info_color())
+            print_in_color(exit_message, config.get_info_color())
             break
 
-        choices = {
-            "1": config.get_openai_assistant_choices()[0],
-            "2": config.get_openai_assistant_choices()[1],
-            "3": config.get_openai_assistant_choices()[2],
-            "4": config.get_openai_assistant_choices()[3],
-        }
-
-        if int(get_user_question.strip()) not in choices:
+        if get_user_question.strip().isdigit() and int(get_user_question.strip()) not in choices:
             print_in_color("Invalid choice. Please try again.", config.get_warning_color())
-            get_user_question = input("Ask `Kel`: ")
+            get_user_question = input(f"{openai_user_prefix}")
             continue
 
-        if int(get_user_question.strip()) in choices:
-            assistant.add_message_to_thread(thread.id, choices[get_user_question.strip()])
+        if get_user_question.strip().isdigit() and int(get_user_question.strip()) in choices:
+            assistant.add_message_to_thread(thread.id, choices[int(get_user_question.strip())])
             run = assistant.start_run(thread.id, assistant.assistant.id)
 
         else:
@@ -109,7 +112,7 @@ def summon_assistant():
             # print(f"Run id: {run.id} | Run status: {run.status}")
 
         with Progress(transient=True) as progress:
-            task = progress.add_task("[cyan]Crunching...", total=100)
+            task = progress.add_task(f"[cyan]{random.choice(openai_response_prefix)}...", total=100)
 
             while not progress.finished:
                 while run.status != "completed":
@@ -125,6 +128,6 @@ def summon_assistant():
 
         assistant.get_messages_and_print(thread.id, run.id)
 
-        get_user_question = input("Ask `Kel`: ")
+        get_user_question = input(f"{openai_user_prefix}")
 
     assistant.delete_assistant()

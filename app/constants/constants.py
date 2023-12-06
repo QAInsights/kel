@@ -25,3 +25,11 @@ emoji_error = ":x:"
 emoji_money = ":moneybag:"
 app_name = "Kel"
 app_version = "0.0.1"
+exit_message = "Exiting chat mode... Bye!"
+
+openai_response_prefix = ["Thinking...", "Crunching...", "Analyzing...",
+                          "Processing...", "Calculating...", "Working...",
+                          "Cooking", "Slicing...", "Dicing...", "Chopping..."]
+openai_user_prefix = "Ask `Kel`: "
+openai_assistant_prefix = "Assistant "
+

@@ -38,10 +38,11 @@ Do not return anything other than the command. Do not wrap responses in quotes.
 enable_openai_assistant = true
 openai_assistant_model_name = "gpt-4-1106-preview"
 openai_assistant_instructions = """
-Analyse the file and answer questions about performance stats.
+Analyse the file and answer questions about performance stats. Give me the stats in a table format unless I ask it in a different way.
+If you have trouble in understanding the file format, consider it as a CSV file unless I specify the file format.
+Keep the answers short and simple unless I ask for a detailed explanation.
 """
 openai_assistant_prompt = """
-Everything should be in a table format so that I can understand it.
 Do not give detailed explanation. If you find any bottleneck, please share that as well.
 """
 openai_delete_assistant_at_exit = true

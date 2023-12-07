@@ -34,7 +34,7 @@ Do not return anything other than the command. Do not wrap responses in quotes.
 """
 
 [openai_assistant]
-enable_openai_assistant = true
+enable_openai_assistant = false
 openai_assistant_model_name = "gpt-4-1106-preview"
 openai_assistant_instructions = """
 Analyse the file and answer questions about performance stats. Give me the stats in a table format unless I ask it in a different way.

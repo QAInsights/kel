@@ -277,7 +277,13 @@ def get_default_anthropic_streaming_response():
     """
     return config.get("anthropic", {}).get("default_anthropic_streaming_response", False)
 
+def get_anthropic_enable_chat():
+    """
+    Get the enable chat
+    Returns:
 
+    """
+    return config.get("anthropic", {}).get("anthropic_enable_chat", False)
 # Stats Configs
 def get_display_cost():
     """

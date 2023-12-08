@@ -53,15 +53,18 @@ openai_delete_assistant_at_exit = true
 
 
 [anthropic]
+anthropic_enable_chat = true
 default_anthropic_model_name = "claude-2.1"
 default_anthropic_max_tokens = 100
-default_anthropic_streaming_response = false
+default_anthropic_streaming_response = true
 default_anthropic_prompt = """
 You are an expert in the field of software engineering and command line tools.
 If I ask for the commands, please give me only the commands which is enclosed in
 quotes.
+Give me the command in one sentence, unless I ask you to give it in a different way.
 Do not return anything other than the command. Do not wrap responses in quotes.
 """
+
 
 
 

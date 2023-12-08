@@ -241,7 +241,7 @@ def get_anthropic_key():
     return anthropic_key
 
 
-def get_anthropic_model_name():
+def get_anthropic_default_model_name():
     """
     Get the anthropic model name
     Returns:
@@ -260,23 +260,22 @@ def get_anthropic_default_prompt():
                                            "You are an expert in software engineering. You are helping a developer.")
 
 
-def get_anthropic_default_endpoint():
+def get_anthropic_default_max_tokens():
     """
-    Get the default anthropic endpoint
+    Get the default max tokens
     Returns:
 
     """
-    return config.get("anthropic", {}).get("default_anthropic_endpoint",
-                                           f"{get_default_protocol()}://api.anthropic.com")
+    return config.get("anthropic", {}).get("default_anthropic_max_tokens", 100)
 
 
-def get_anthropic_default_uri():
+def get_default_anthropic_streaming_response():
     """
-    Get the default anthropic uri
+    Get the default streaming response settings
     Returns:
 
     """
-    return config.get("anthropic", {}).get("default_anthropic_uri", "/v1/chat/completions")
+    return config.get("anthropic", {}).get("default_anthropic_streaming_response", False)
 
 
 # Stats Configs

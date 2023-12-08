@@ -4,7 +4,7 @@ supported_companies = ["OpenAI", "Anthropic"]
 [general]
 protocol = "https"
 default_language = "english"
-default_company_name = "OpenAI"
+default_company_name = "Anthropic"
 copy_to_clipboard = true
 
 [style]
@@ -54,14 +54,13 @@ openai_delete_assistant_at_exit = true
 
 [anthropic]
 default_anthropic_model_name = "claude-2.1"
-default_anthropic_endpoint = "api.anthropic.com"
-default_anthropic_uri = "/v1/chat/completions"
-
+default_anthropic_max_tokens = 100
+default_anthropic_streaming_response = false
 default_anthropic_prompt = """
 You are an expert in the field of software engineering and command line tools.
 If I ask for the commands, please give me only the commands which is enclosed in
-single or double quotes.
-If I ask for the description, please give me the description.
+quotes.
+Do not return anything other than the command. Do not wrap responses in quotes.
 """
 
 

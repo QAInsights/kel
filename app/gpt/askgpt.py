@@ -1,12 +1,15 @@
+import asyncio
 import sys
 import time
 
 from openai import AsyncOpenAI
+from anthropic import AsyncAnthropic
 
 from app.config import get_configs as config
 from app.constants.constants import *
 from app.inputs.inputs import get_user_inputs_from_cli
 from app.utils.utils import copy_to_clipboard, print_in_color
+from app.gpt.askanthropic import ask_anthropic
 
 
 class AICompany:
@@ -27,7 +30,19 @@ class GPTModel:
         self.model_temperature = model_temperature
 
         # create a client when the class is instantiated
-        self.client = AsyncOpenAI(api_key=self.model_api_key)
+        if config.get_default_company_name().lower() == "openai":
+            self.client = AsyncOpenAI(api_key=self.model_api_key)
+        elif config.get_default_company_name().lower() == "anthropic":
+            self.client = AsyncAnthropic()
+
+    async def call_anthropic(self, client, question=None, prompt=None, model=None, max_tokens=None):
+        if model is None:
+            model = self.model_name
+        if max_tokens is None:
+            max_tokens = self.model_max_token
+        if prompt is None:
+            prompt = config.get_openai_default_prompt()
+        await ask_anthropic(client, question, prompt, model, max_tokens)
 
     async def ask_gpt(self, question=None, prompt=None, model=None, temperature=None, max_tokens=None, assistant=None,
                       file=None):
@@ -126,6 +141,20 @@ async def gpt() -> None:
 
         await openai.ask_gpt(question, prompt, model, temperature, max_tokens)
 
-    if config.get_default_company_name() == "anthropic":
-        print("Anthropic")
-        # to do
+    if config.get_default_company_name().lower() == "anthropic":
+        anthropic = GPTModel(
+            model_name=config.get_anthropic_default_model_name(),
+            model_prompt=f"{config.get_anthropic_default_prompt()}.",
+            model_max_token=f"{config.get_anthropic_default_max_tokens()}",
+            model_api_key=None,
+            model_endpoint=None,
+            model_temperature=None
+        )
+
+        await anthropic.call_anthropic(
+            client=anthropic.client,
+            question=question,
+            prompt=prompt,
+            model=model,
+            max_tokens=max_tokens
+       )

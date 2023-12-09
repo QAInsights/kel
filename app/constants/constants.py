@@ -1,3 +1,9 @@
+valid_ai_company_names = [
+    "openai",
+    "anthropic",
+    "ollama"
+]
+
 valid_openai_chat_models = [
     "gpt-4",
     "gpt-4-32k",
@@ -23,6 +29,8 @@ emoji_time = ":clock3:"
 emoji_pencil = ":pencil:"
 emoji_error = ":x:"
 emoji_money = ":moneybag:"
+emoji_thinking = ":thinking:"
+
 app_name = "Kel"
 app_version = "0.0.1"
 exit_message = "Exiting chat mode... Bye!"

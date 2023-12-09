@@ -70,7 +70,7 @@ def after_ask_gpt_display(*args, **kwargs):
         if "response_time" in kwargs:
             data = kwargs.get("response_time")
             if data:
-                print_in_color(f"{emoji_time} Response Time: {data:.2f} seconds",
+                print_in_color(f"{emoji_time} Response Time: {data:.5f} seconds",
                                config.get_info_color(),
                                end=end)
 

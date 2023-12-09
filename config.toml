@@ -2,9 +2,9 @@
 supported_companies = ["OpenAI", "Anthropic", "Ollama"]
 
 [general]
-protocol = "http"
+protocol = "https"
 default_language = "english"
-default_company_name = "Anthropic"
+default_company_name = "OpenAI"
 copy_to_clipboard = true
 display_llm_company_model_name = true
 

@@ -1,5 +1,12 @@
 import argparse
 
+prog = 'Kel'
+description = """
+Ask Kel. Your CLI based AI assistant.
+Supported AI companies: OpenAI, Anthropic, and Ollama.
+"""
+epilog = 'Thank you for using Kel!'
+
 
 def get_user_inputs_from_cli():
     """
@@ -9,21 +16,21 @@ def get_user_inputs_from_cli():
     """
     # Parse the arguments
     parser = argparse.ArgumentParser(
-        prog='Kel',
-        description='Ask Kel. Your CLI based AI assistant.',
-        epilog='Thank you for using Kel!'
+        prog=prog,
+        description=description,
+        epilog=epilog
     )
 
     parser.add_argument(
         'question',
-        help='Your question to Kel: ',
+        help='your question to Kel: ',
         type=str,
     )
 
     parser.add_argument(
         '-p',
         '--prompt',
-        help='Prompt e.g "You are a web performance expert. You are helping a developer."',
+        help='prompt e.g "You are a web performance expert. You are helping a developer."',
         type=str,
         required=False
     )
@@ -31,14 +38,14 @@ def get_user_inputs_from_cli():
     parser.add_argument(
         '-m',
         '--model',
+        help='model name e.g gpt-4',
         type=str,
-        help='Model name e.g gpt-4',
         required=False
     )
     parser.add_argument(
         '-t',
         '--temperature',
-        help='Temperature e.g 0.9',
+        help='temperature e.g 0.9',
         type=float,
         required=False
     )
@@ -46,7 +53,14 @@ def get_user_inputs_from_cli():
         '-mt',
         '--max_tokens',
         type=int,
-        help='Max tokens e.g 150',
+        help='max tokens e.g 150',
+        required=False
+    )
+    parser.add_argument(
+        '-c',
+        '--company',
+        type=str,
+        help='company name e.g OpenAI',
         required=False
     )
 
@@ -61,15 +75,15 @@ def get_assistant_inputs():
     """
     # Parse the arguments
     parser = argparse.ArgumentParser(
-        prog='Kel',
-        description='Ask Kel. Your CLI based AI assistant.',
-        epilog='Thank you for using Kel!'
+        prog=prog,
+        description=description,
+        epilog=epilog
     )
     parser.add_argument(
         '-a',
         '--assistant',
         type=str,
-        help='Assistant name e.g PerfGPT',
+        help='assistant name e.g PerfGPT',
         required=False
     )
 
@@ -77,7 +91,7 @@ def get_assistant_inputs():
         '-f',
         '--file',
         type=str,
-        help='File path',
+        help='file path',
         required=False
     )
 

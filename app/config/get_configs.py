@@ -44,6 +44,15 @@ def get_default_company_name():
     return config.get("general", {}).get("default_company_name", "openai")
 
 
+def get_display_llm_company_model_name():
+    """
+    Get the display llm company model name
+    Returns:
+
+    """
+    return config.get("general", {}).get("display_llm_company_model_name", False)
+
+
 def get_response_language():
     """
     Get the response language
@@ -277,6 +286,7 @@ def get_default_anthropic_streaming_response():
     """
     return config.get("anthropic", {}).get("default_anthropic_streaming_response", False)
 
+
 def get_anthropic_enable_chat():
     """
     Get the enable chat
@@ -284,6 +294,63 @@ def get_anthropic_enable_chat():
 
     """
     return config.get("anthropic", {}).get("anthropic_enable_chat", False)
+
+
+def get_ollama_enable_chat():
+    """
+    Get the enable chat
+    Returns:
+
+    """
+    return config.get("ollama", {}).get("ollama_enable_chat", False)
+
+
+def get_ollama_default_model_name():
+    """
+    Get the default model name
+    Returns:
+
+    """
+    return config.get("ollama", {}).get("default_ollama_model_name", "ollama2")
+
+
+def get_ollama_default_prompt():
+    """
+    Get the default prompt
+    Returns:
+
+    """
+    return config.get("ollama", {}).get("default_ollama_prompt",
+                                        "You are an expert in software engineering. You are helping a developer.")
+
+
+def get_ollama_default_max_tokens():
+    """
+    Get the default max tokens
+    Returns:
+
+    """
+    return config.get("ollama", {}).get("default_ollama_max_tokens", 100)
+
+
+def get_ollama_streaming_response():
+    """
+    Get the streaming response
+    Returns:
+
+    """
+    return config.get("ollama", {}).get("default_ollama_streaming_response", False)
+
+
+def get_ollama_default_endpoint():
+    """
+    Get the endpoint
+    Returns:
+
+    """
+    return config.get("ollama", {}).get("default_ollama_endpoint", f"{get_default_protocol()}://api.ollama.ai")
+
+
 # Stats Configs
 def get_display_cost():
     """

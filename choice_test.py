@@ -1,6 +1,16 @@
-from app.config import get_configs as config
+from langchain.callbacks.manager import CallbackManager
+from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
+from langchain.llms import Ollama
 
-print((lambda x: config.get_default_anthropic_streaming_response())(None))
+llm = Ollama(
+    model="llama2", callback_manager=CallbackManager([StreamingStdOutCallbackHandler()])
+)
+llm("Tell me about the history of AI")
+
+
+# from app.config import get_configs as config
+#
+# print((lambda x: config.get_default_anthropic_streaming_response())(None))
 
 # import random
 #

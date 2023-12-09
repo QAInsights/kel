@@ -1,11 +1,12 @@
 [companies]
-supported_companies = ["OpenAI", "Anthropic"]
+supported_companies = ["OpenAI", "Anthropic", "Ollama"]
 
 [general]
-protocol = "https"
+protocol = "http"
 default_language = "english"
-default_company_name = "Anthropic"
+default_company_name = "Ollama"
 copy_to_clipboard = true
+display_llm_company_model_name = true
 
 [style]
 # Supported colors: https://rich.readthedocs.io/en/stable/appendix/colors.html#appendix-colors
@@ -53,7 +54,8 @@ openai_delete_assistant_at_exit = true
 
 
 [anthropic]
-anthropic_enable_chat = true
+# chat mode is not available for Anthropic yet
+anthropic_enable_chat = false
 default_anthropic_model_name = "claude-2.1"
 default_anthropic_max_tokens = 100
 default_anthropic_streaming_response = true
@@ -65,6 +67,19 @@ Give me the command in one sentence, unless I ask you to give it in a different 
 Do not return anything other than the command. Do not wrap responses in quotes.
 """
 
-
+[ollama]
+ollama_endpoint = "localhost:11434"
+# chat mode is not available for Ollama yet
+ollama_enable_chat = false
+default_ollama_model_name = "llama2"
+default_ollama_max_tokens = 100
+default_ollama_streaming_response = true
+default_ollama_prompt = """
+You are an expert in the field of software engineering and command line tools.
+If I ask for the commands, please give me only the commands which is enclosed in
+quotes.
+Give me the command in one sentence, unless I ask you to give it in a different way.
+Do not return anything other than the command. Do not wrap responses in quotes.
+"""
 
 

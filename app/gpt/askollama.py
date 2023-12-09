@@ -30,7 +30,9 @@ def ask_ollama(question=None, model=None, prompt=None, max_tokens=None):
         # Printing the response
         llm(question)
         after_ask_gpt_display(response_time=response_time)
-        after_ask_gpt_display(consumed_tokens=model)
+
+        # TODO: Implement this
+        # after_ask_gpt_display(consumed_tokens=model)
     except Exception as e:
         print(f"Error: {e}")
         sys.exit(1)

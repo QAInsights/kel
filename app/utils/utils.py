@@ -41,7 +41,7 @@ def print_in_color(text, color, end="\n"):
     console.print(text, style=color, end=end)
 
 
-def before_ask_gpt_display(**kwargs):
+def before_ask_gpt_display(*args, **kwargs):
     """
     Before ask gpt
     Returns:
@@ -57,7 +57,7 @@ def before_ask_gpt_display(**kwargs):
                            config.get_info_color(), end=end)
 
 
-def after_ask_gpt_display(**kwargs):
+def after_ask_gpt_display(*args, **kwargs):
     """
     After ask gpt
     Returns:
@@ -69,13 +69,15 @@ def after_ask_gpt_display(**kwargs):
     if config.get_display_response_time():
         if "response_time" in kwargs:
             data = kwargs.get("response_time")
-            print_in_color(f"{emoji_time} Response Time: {data:.2f} seconds",
-                           config.get_info_color(),
-                           end=end)
+            if data:
+                print_in_color(f"{emoji_time} Response Time: {data:.2f} seconds",
+                               config.get_info_color(),
+                               end=end)
 
     if config.get_display_tokens():
         if "consumed_tokens" in kwargs:
             data = kwargs.get("consumed_tokens")
-            print_in_color(f"{emoji_money} Total Consumed Tokens: {data}",
-                           config.get_info_color(),
-                           end=end)
+            if data:
+                print_in_color(f"{emoji_money} Total Consumed Tokens: {data}",
+                               config.get_info_color(),
+                               end=end)

@@ -6,7 +6,7 @@ Kel is your AI assistant in your CLI.
 
 ## Demo
 
-[![asciicast](https://asciinema.org/a/rRJIDdfIWTC3TlwL52kzOik7w.svg)](https://asciinema.org/a/rRJIDdfIWTC3TlwL52kzOik7w)
+<a href="https://asciinema.org/a/626190" target="_blank"><img src="https://asciinema.org/a/626190.svg" /></a>
 
 ## Features
 

@@ -163,4 +163,7 @@ venv/
 .idea/
 .DS_Store
 
+choice_test.py
+results.csv
+
 

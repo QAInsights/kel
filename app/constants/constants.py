@@ -46,6 +46,7 @@ def get_official_names():
     if len(valid_ai_company_official_names) == 1:
         return valid_ai_company_official_names[0]
 
+
 # Emoji constants
 emoji_info = ":speech_balloon:"
 emoji_time = ":clock3:"
@@ -72,6 +73,3 @@ Ask Kel. Your CLI based AI assistant.
 Supported AI companies: {get_official_names()}.
 """
 epilog = 'Thank you for using Kel!'
-
-
-

@@ -1,6 +1,7 @@
 import time
 
 from app.config import get_configs as config
+from app.utils.cost import calculate_cost
 from app.constants.constants import emoji_error, emoji_thinking, emoji_info, \
     valid_openai_chat_models
 from app.utils.utils import copy_to_clipboard, print_in_color, before_ask_gpt_display, after_ask_gpt_display
@@ -9,7 +10,6 @@ from app.utils.utils import copy_to_clipboard, print_in_color, before_ask_gpt_di
 async def ask_openai(client=None, question=None, prompt=None, model=None, temperature=None, max_tokens=None,
                      company=None, assistant=None, file=None):
     try:
-
         before_ask_gpt_display(company=company, model=model)
 
         print_in_color(f"Thinking...🤔", config.get_info_color(), end="")
@@ -36,6 +36,9 @@ async def ask_openai(client=None, question=None, prompt=None, model=None, temper
 
             after_ask_gpt_display(response_time=response_time, end=" ")
             after_ask_gpt_display(consumed_tokens=response.usage.total_tokens, end=" ")
+
+            cost = calculate_cost(company, model, response.usage.total_tokens)
+            after_ask_gpt_display(cost=cost, end=" ")
 
             if config.get_copy_to_clipboard():
                 copy_to_clipboard(response.choices[0].message.content)

@@ -51,8 +51,8 @@ class GPTModel(AICompany):
 
         await ask_anthropic(client=self.client, question=question, prompt=prompt, company=company, model=model, max_tokens=max_tokens)
 
-    async def ask_gpt(self, question=None, prompt=None, model=None, temperature=None, max_tokens=None, assistant=None,
-                      file=None):
+    async def ask_gpt(self, question=None, prompt=None, model=None, temperature=None, max_tokens=None,
+                      company=None, assistant=None, file=None):
         """
         Ask GPT
         Args:
@@ -75,7 +75,7 @@ class GPTModel(AICompany):
             max_tokens = config.get_openai_max_tokens()
         if prompt is None:
             prompt = config.get_openai_default_prompt()
-        await ask_openai(client=self.client, question=question, prompt=prompt, model=model, temperature=temperature,
+        await ask_openai(client=self.client, company=company, question=question, prompt=prompt, model=model, temperature=temperature,
                          max_tokens=max_tokens)
 
 
@@ -100,7 +100,7 @@ async def gpt() -> None:
             model_temperature=temperature
         )
 
-        await openai.ask_gpt(question, prompt, model, temperature, max_tokens)
+        await openai.ask_gpt(question, prompt, model, temperature, max_tokens, company=company_name)
 
     elif company_name == "anthropic":
         anthropic = GPTModel(

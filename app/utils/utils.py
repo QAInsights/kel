@@ -86,3 +86,11 @@ def after_ask_gpt_display(*args, **kwargs):
                 print_in_color(f"{emoji_money} Total Consumed Tokens: {data}",
                                config.get_info_color(),
                                end=end)
+
+    if config.get_display_cost():
+        if "cost" in kwargs:
+            data = kwargs.get("cost")
+            if data:
+                print_in_color(f"{emoji_money} Total Cost: {data:.6f} USD",
+                               config.get_info_color(),
+                               end=end)

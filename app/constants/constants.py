@@ -46,3 +46,5 @@ openai_response_prefix = ["Thinking...", "Crunching...", "Analyzing...",
 openai_user_prefix = "Ask `Kel`: "
 openai_assistant_prefix = "Assistant "
 
+pricing_error_message = "Error: Pricing information is not available for this model."
+

@@ -1,11 +1,25 @@
+
+import sqlite3
+
+conn = sqlite3.connect('my_database.db')  # This will create the database file if it doesn't exist
+cursor = conn.cursor()
+
+# Create a table
+# cursor.execute('''CREATE TABLE IF NOT EXISTS tokens (service_name TEXT PRIMARY KEY, api_token TEXT)''')
+# Insert a new API token
+cursor.execute('''INSERT INTO tokens (service_name, api_token) VALUES (?, ?)''', ('service_x', 'tokenvalue1223'))
+
+conn.commit()  # Commit the changes
+conn.close()  # Close the connection
+
 from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
-from langchain.llms import Ollama
-
-llm = Ollama(
-    model="llama2", callback_manager=CallbackManager([StreamingStdOutCallbackHandler()])
-)
-llm("Tell me about the history of AI")
+# from langchain.llms import Ollama
+#
+# llm = Ollama(
+#     model="llama2", callback_manager=CallbackManager([StreamingStdOutCallbackHandler()])
+# )
+# llm("Tell me about the history of AI")
 
 
 # from app.config import get_configs as config

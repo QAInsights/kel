@@ -4,6 +4,10 @@ Kel is your AI assistant in your CLI.
 
 > Kel `கேள்` means `ask` in Tamil.
 
+## Demo
+
+[![asciicast](https://asciinema.org/a/rRJIDdfIWTC3TlwL52kzOik7w.svg)](https://asciinema.org/a/rRJIDdfIWTC3TlwL52kzOik7w)
+
 ## Features
 
 - Free and Open Source

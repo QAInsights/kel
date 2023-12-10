@@ -10,14 +10,15 @@ from app.constants.constants import emoji_time, emoji_money, emoji_info
 from app.utils.utils import copy_to_clipboard, print_in_color, before_ask_gpt_display, after_ask_gpt_display
 
 
-def ask_ollama(question=None, model=None, prompt=None, max_tokens=None):
+def ask_ollama(company=None, question=None, model=None, prompt=None, max_tokens=None):
     """
     Call the Ollama API
     Returns:
 
     """
 
-    before_ask_gpt_display(model=model)
+    before_ask_gpt_display(company=company, model=model)
+
     try:
         start_time = time.time()
         llm = Ollama(

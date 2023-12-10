@@ -31,15 +31,17 @@ class GPTModel(AICompany):
             self.client = AsyncAnthropic()
 
     @staticmethod
-    def call_ollama(question=None, prompt=None, model=None, max_tokens=None):
+    def call_ollama(company=None, question=None, prompt=None, model=None, max_tokens=None):
         if model is None:
             model = config.get_ollama_default_model_name()
         if max_tokens is None:
             max_tokens = config.get_ollama_default_max_tokens()
         if prompt is None:
             prompt = config.get_ollama_default_prompt()
+        if company is None:
+            company = config.get_default_company_name()
 
-        ask_ollama(question=question, prompt=prompt, model=model, max_tokens=max_tokens)
+        ask_ollama(company=company, question=question, prompt=prompt, model=model, max_tokens=max_tokens)
 
     async def call_anthropic(self, question=None, prompt=None, company=None, model=None, max_tokens=None):
         if model is None:
@@ -59,6 +61,8 @@ class GPTModel(AICompany):
             question:
 
         Returns:
+        :param assistant:
+        :param company:
         :param file:
         :param prompt:
         :param max_tokens:
@@ -133,6 +137,7 @@ async def gpt() -> None:
         )
 
         ollama.call_ollama(
+            company=company_name,
             question=question,
             prompt=prompt,
             model=model,

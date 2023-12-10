@@ -80,10 +80,10 @@ def after_ask_gpt_display(*args, **kwargs):
                                end=end)
 
     if config.get_display_tokens():
-        if "consumed_tokens" in kwargs:
-            data = kwargs.get("consumed_tokens")
+        if "total_tokens" in kwargs:
+            data = kwargs.get("total_tokens")
             if data:
-                print_in_color(f"{emoji_money} Total Consumed Tokens: {data}",
+                print_in_color(f"{emoji_money} Total Tokens: {data}",
                                config.get_info_color(),
                                end=end)
 

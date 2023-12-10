@@ -34,10 +34,16 @@ async def ask_openai(client=None, question=None, prompt=None, model=None, temper
 
             print_in_color(f"{emoji_info} {response.choices[0].message.content}", config.get_response_color())
 
-            after_ask_gpt_display(response_time=response_time, end=" ")
-            after_ask_gpt_display(consumed_tokens=response.usage.total_tokens, end=" ")
+            after_ask_gpt_display(response_time=response_time,
+                                  end=" ")
+            after_ask_gpt_display(total_tokens=response.usage.total_tokens,
+                                  end=" ")
 
-            cost = calculate_cost(company, model, response.usage.total_tokens)
+            cost = calculate_cost(company,
+                                  model,
+                                  prompt_tokens=response.usage.prompt_tokens,
+                                  completion_tokens=response.usage.completion_tokens
+                                  )
             after_ask_gpt_display(cost=cost, end=" ")
 
             if config.get_copy_to_clipboard():

@@ -24,6 +24,11 @@ valid_anthropic_chat_models = [
     "claude-2"
 ]
 
+valid_api_keys_env = {
+    "openai": "OPENAI_API_KEY",
+    "anthropic": "ANTHROPIC_API_KEY"
+}
+
 emoji_info = ":speech_balloon:"
 emoji_time = ":clock3:"
 emoji_pencil = ":pencil:"

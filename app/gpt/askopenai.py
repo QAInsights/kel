@@ -7,20 +7,10 @@ from app.utils.utils import copy_to_clipboard, print_in_color, before_ask_gpt_di
 
 
 async def ask_openai(client=None, question=None, prompt=None, model=None, temperature=None, max_tokens=None,
-                     assistant=None,
-                     file=None):
+                     company=None, assistant=None, file=None):
     try:
 
-        if model is None:
-            model = config.get_openai_default_model()
-        if temperature is None:
-            temperature = config.get_openai_temperature()
-        if max_tokens is None:
-            max_tokens = config.get_openai_max_tokens()
-        if prompt is None:
-            prompt = config.get_openai_default_prompt()
-
-        before_ask_gpt_display(model=model)
+        before_ask_gpt_display(company=company, model=model)
 
         print_in_color(f"Thinking...🤔", config.get_info_color(), end="")
 

@@ -50,10 +50,15 @@ def before_ask_gpt_display(*args, **kwargs):
     end = "\n"
     if "end" in kwargs:
         end = kwargs.get("end")
+    if "company" in kwargs:
+        company = kwargs.get("company")
+    else:
+        company = config.get_default_company_name()
+
     if "model" in kwargs:
         if config.get_display_llm_company_model_name():
             model = kwargs.get("model")
-            print_in_color(f"{emoji_info} You are using {config.get_default_company_name()}'s Model: {model}",
+            print_in_color(f"{emoji_info} You are using {company}'s model: {model}",
                            config.get_info_color(), end=end)
 
 

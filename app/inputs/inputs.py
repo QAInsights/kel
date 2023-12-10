@@ -1,5 +1,7 @@
 import argparse
 
+from app.config.get_configs import get_enable_openai_assistant
+
 prog = 'Kel'
 description = """
 Ask Kel. Your CLI based AI assistant.
@@ -20,6 +22,25 @@ def get_user_inputs_from_cli():
         description=description,
         epilog=epilog
     )
+
+    if get_enable_openai_assistant():
+        parser.add_argument(
+            '-a',
+            '--assistant',
+            type=str,
+            help='assistant name e.g PerfGPT',
+            required=False
+        )
+
+        parser.add_argument(
+            '-f',
+            '--file',
+            type=str,
+            help='file path',
+            required=False
+        )
+
+        return parser.parse_args()
 
     parser.add_argument(
         'question',
@@ -65,35 +86,6 @@ def get_user_inputs_from_cli():
     )
 
     args = parser.parse_args()
+    print("All arguments: ", args)
     return args
 
-
-def get_assistant_inputs():
-    """
-    Get the assistant info
-    :return:
-    """
-    # Parse the arguments
-    parser = argparse.ArgumentParser(
-        prog=prog,
-        description=description,
-        epilog=epilog
-    )
-    parser.add_argument(
-        '-a',
-        '--assistant',
-        type=str,
-        help='assistant name e.g PerfGPT',
-        required=False
-    )
-
-    parser.add_argument(
-        '-f',
-        '--file',
-        type=str,
-        help='file path',
-        required=False
-    )
-
-    args = parser.parse_args()
-    return args

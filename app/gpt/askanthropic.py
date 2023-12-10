@@ -3,13 +3,13 @@ import time
 from anthropic import HUMAN_PROMPT, AI_PROMPT
 
 from app.config import get_configs as config
-from app.constants.constants import emoji_time, emoji_money, emoji_info
 from app.utils.utils import copy_to_clipboard, print_in_color, before_ask_gpt_display, after_ask_gpt_display
 
 
-async def ask_anthropic(client, question, prompt, model, max_tokens):
+async def ask_anthropic(client, question, company, prompt, model, max_tokens):
     """
     Ask Anthropic GPT
+    :param company:
     :param client:
     :param question:
     :param prompt:
@@ -19,19 +19,22 @@ async def ask_anthropic(client, question, prompt, model, max_tokens):
     """
     calc_token = ""
     stream = config.get_default_anthropic_streaming_response()
-
-    before_ask_gpt_display(model=model)
+    before_ask_gpt_display(company=company, model=model)
 
     print_in_color(f"Thinking... 🤔", config.get_info_color(), end="\n")
 
     if stream:
         start_time = time.time()
-        response = await client.completions.create(
-            model=model,
-            max_tokens_to_sample=int(max_tokens),
-            prompt=f"{HUMAN_PROMPT} {question}{AI_PROMPT}",
-            stream=stream,
-        )
+        try:
+            response = await client.completions.create(
+                model=model,
+                max_tokens_to_sample=int(max_tokens),
+                prompt=f"{HUMAN_PROMPT} {question}{AI_PROMPT}",
+                stream=stream,
+            )
+        except Exception as e:
+            print(f"Error: {e}")
+            return f"Error: {e}"
         response_time = time.time() - start_time
         async for completion in response:
             print(f"{completion.completion}", end="", flush=True)
@@ -40,12 +43,16 @@ async def ask_anthropic(client, question, prompt, model, max_tokens):
 
     else:
         start_time = time.time()
-        response = await client.completions.create(
-            model=model,
-            max_tokens_to_sample=int(max_tokens),
-            prompt=f"{HUMAN_PROMPT} {question}{AI_PROMPT}",
-            stream=stream,
-        )
+        try:
+            response = await client.completions.create(
+                model=model,
+                max_tokens_to_sample=int(max_tokens),
+                prompt=f"{HUMAN_PROMPT} {question}{AI_PROMPT}",
+                stream=stream,
+            )
+        except Exception as e:
+            print(f"Error: {e}")
+            return f"Error: {e}"
         response_time = time.time() - start_time
         # Streaming response cannot be copied to clipboard
         if config.get_copy_to_clipboard():

@@ -2,7 +2,7 @@ import os
 import time
 import random
 
-from app.inputs.inputs import get_assistant_inputs
+from app.inputs.inputs import get_user_inputs_from_cli
 
 from openai import OpenAI
 from rich.progress import Progress
@@ -66,7 +66,7 @@ class Assistant:
 
 
 def summon_assistant():
-    assistant_name, file = vars(get_assistant_inputs()).values()
+    assistant_name, file = vars(get_user_inputs_from_cli()).values()
 
     print_in_color("Summoning an assistant...", config.get_info_color())
     print_in_color(f"""    

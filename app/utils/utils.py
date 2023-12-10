@@ -1,7 +1,7 @@
 import pyperclip
 from rich.console import Console
 
-from app.constants.constants import emoji_info, emoji_time, emoji_money
+from app.constants.constants import emoji_info, emoji_time, emoji_money, valid_ai_company_official_names
 from app.config import get_configs as config
 
 
@@ -94,3 +94,5 @@ def after_ask_gpt_display(*args, **kwargs):
                 print_in_color(f"{emoji_money} Total Cost: {data:.6f} USD",
                                config.get_info_color(),
                                end=end)
+
+

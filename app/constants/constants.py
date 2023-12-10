@@ -6,6 +6,12 @@ valid_ai_company_names = [
     "ollama"
 ]
 
+valid_ai_company_official_names = [
+    "OpenAI",
+    "Anthropic",
+    "Ollama"
+]
+
 valid_openai_chat_models = [
     "gpt-4",
     "gpt-4-32k",
@@ -31,6 +37,16 @@ valid_api_keys_env = {
     "anthropic": "ANTHROPIC_API_KEY"
 }
 
+
+def get_official_names():
+    if len(valid_ai_company_official_names) > 2:
+        return ", ".join(valid_ai_company_official_names[:-1]) + ", and " + valid_ai_company_official_names[-1]
+    if len(valid_ai_company_official_names) == 2:
+        return valid_ai_company_official_names[0] + " and " + valid_ai_company_official_names[1]
+    if len(valid_ai_company_official_names) == 1:
+        return valid_ai_company_official_names[0]
+
+# Emoji constants
 emoji_info = ":speech_balloon:"
 emoji_time = ":clock3:"
 emoji_pencil = ":pencil:"
@@ -38,22 +54,24 @@ emoji_error = ":x:"
 emoji_money = ":moneybag:"
 emoji_thinking = ":thinking:"
 
-app_name = "Kel"
-app_version = __version__
-app_description = """
-Ask Kel. Your CLI based AI assistant.
-Supported AI companies: OpenAI, Anthropic, and Ollama.
-"""
-epilog = 'Thank you for using Kel!'
-
-
-exit_message = "Exiting chat mode... Bye!"
-
+# OpenAI constants
 openai_response_prefix = ["Thinking...", "Crunching...", "Analyzing...",
                           "Processing...", "Calculating...", "Working...",
                           "Cooking", "Slicing...", "Dicing...", "Chopping..."]
 openai_user_prefix = "Ask `Kel`: "
 openai_assistant_prefix = "Assistant "
-
+exit_message = "Exiting chat mode... Bye!"
 pricing_error_message = "Error: Pricing information is not available for this model."
+
+# App constants
+app_name = "Kel"
+app_version = __version__
+
+app_description = f"""
+Ask Kel. Your CLI based AI assistant.
+Supported AI companies: {get_official_names()}.
+"""
+epilog = 'Thank you for using Kel!'
+
+
 

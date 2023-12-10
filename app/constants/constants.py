@@ -1,3 +1,5 @@
+from app.__version__ import __version__
+
 valid_ai_company_names = [
     "openai",
     "anthropic",
@@ -37,7 +39,14 @@ emoji_money = ":moneybag:"
 emoji_thinking = ":thinking:"
 
 app_name = "Kel"
-app_version = "0.0.1"
+app_version = __version__
+app_description = """
+Ask Kel. Your CLI based AI assistant.
+Supported AI companies: OpenAI, Anthropic, and Ollama.
+"""
+epilog = 'Thank you for using Kel!'
+
+
 exit_message = "Exiting chat mode... Bye!"
 
 openai_response_prefix = ["Thinking...", "Crunching...", "Analyzing...",

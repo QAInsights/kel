@@ -1,9 +1,9 @@
 import time
 
 from app.config import get_configs as config
-from app.utils.cost import calculate_cost
-from app.constants.constants import emoji_error, emoji_thinking, emoji_info, \
+from app.constants.constants import emoji_error, emoji_info, \
     valid_openai_chat_models
+from app.utils.cost import calculate_cost
 from app.utils.utils import copy_to_clipboard, print_in_color, before_ask_gpt_display, after_ask_gpt_display
 
 

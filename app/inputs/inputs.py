@@ -1,13 +1,8 @@
 import argparse
 
 from app.config.get_configs import get_enable_openai_assistant
-
-prog = 'Kel'
-description = """
-Ask Kel. Your CLI based AI assistant.
-Supported AI companies: OpenAI, Anthropic, and Ollama.
-"""
-epilog = 'Thank you for using Kel!'
+from app.__version__ import __version__
+from app.constants.constants import app_name, app_description, epilog
 
 
 def get_user_inputs_from_cli():
@@ -18,9 +13,9 @@ def get_user_inputs_from_cli():
     """
     # Parse the arguments
     parser = argparse.ArgumentParser(
-        prog=prog,
-        description=description,
-        epilog=epilog
+        prog=app_name,
+        description=app_description,
+        epilog=epilog,
     )
 
     if get_enable_openai_assistant():
@@ -85,7 +80,13 @@ def get_user_inputs_from_cli():
         required=False
     )
 
-    args = parser.parse_args()
-    print("All arguments: ", args)
-    return args
+    parser.add_argument(
+        '-v',
+        '--version',
+        action='version',
+        version='%(prog)s {version}'.format(version=__version__),
+        help='show version'
+    )
 
+    args = parser.parse_args()
+    return args

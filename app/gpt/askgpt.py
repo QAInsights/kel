@@ -90,7 +90,7 @@ async def gpt() -> None:
 
     """
 
-    question, prompt, model, temperature, max_tokens, company = vars(get_user_inputs_from_cli()).values()
+    show, question, prompt, model, temperature, max_tokens, company = vars(get_user_inputs_from_cli()).values()
     company_name = gatekeeper_tasks(question, prompt, model, temperature, max_tokens, company)
 
     if company_name == "openai":

@@ -1,5 +1,8 @@
+import sys
+
 import pyperclip
 from rich.console import Console
+from rich.table import Table
 
 from app.constants.constants import emoji_info, emoji_time, emoji_money, valid_ai_company_official_names
 from app.config import get_configs as config
@@ -96,3 +99,20 @@ def after_ask_gpt_display(*args, **kwargs):
                                end=end)
 
 
+def display_config(args=None):
+    """
+    Display config
+    :param args:
+    :return:
+    """
+    table = Table(title="Kel Config", show_header=True, header_style="bold blue")
+
+    table.add_column("Name", style="cyan")
+    table.add_column("Value", style="green")
+
+    for key, value in config.get_config_by_key(args).items():
+        table.add_row(str(key), str(value))
+    console = Console()
+    console.print(table)
+
+    sys.exit()

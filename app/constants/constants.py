@@ -37,6 +37,13 @@ valid_api_keys_env = {
     "anthropic": "ANTHROPIC_API_KEY"
 }
 
+valid_show_options = [
+    "companies",
+    "general",
+    "style",
+    "stats"
+]
+
 
 def get_official_names():
     if len(valid_ai_company_official_names) > 2:

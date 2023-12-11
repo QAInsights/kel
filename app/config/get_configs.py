@@ -35,6 +35,19 @@ except Exception as e:
     sys.exit(1)
 
 
+def get_config_by_key(key):
+    """
+    Get the config by key
+    Args:
+        key:
+
+    Returns:
+
+    """
+    config = toml.load(get_config_file_location())
+    return config[key]
+
+
 def get_default_company_name():
     """
     Get the default company name

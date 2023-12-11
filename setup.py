@@ -1,5 +1,6 @@
 from setuptools import setup, find_packages
 from src.kel import __version__ as kel_version
+
 with open("requirements.txt") as f:
     required = f.read().splitlines()
 
@@ -16,4 +17,9 @@ setup(
     author_email="",
     description="AI assistant in your CLI.",
     install_requires=required,
+    entry_points={
+        "console_scripts": [
+            "kel = kel.__main__:main",
+        ],
+    },
 )

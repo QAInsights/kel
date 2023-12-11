@@ -1,9 +1,9 @@
 import os
 import sys
-from app.constants.constants import app_name
+from kel.constants.constants import app_name
 import toml
 
-from app.utils.utils import print_in_color
+from kel.utils.utils import print_in_color
 
 
 def get_config_file_location():

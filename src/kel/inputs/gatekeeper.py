@@ -1,9 +1,9 @@
 import os
 import sys
 
-from app.config import get_configs as config
-from app.utils.utils import print_in_color
-from app.constants.constants import valid_ai_company_names, valid_openai_chat_models, valid_anthropic_chat_models, \
+from kel.config import get_configs as config
+from kel.utils.utils import print_in_color
+from kel.constants.constants import valid_ai_company_names, valid_openai_chat_models, valid_anthropic_chat_models, \
     valid_api_keys_env
 
 

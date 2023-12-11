@@ -1,10 +1,10 @@
 import time
 
-from app.config import get_configs as config
-from app.constants.constants import emoji_error, emoji_info, \
+from kel.config import get_configs as config
+from kel.constants.constants import emoji_error, emoji_info, \
     valid_openai_chat_models
-from app.utils.cost import calculate_cost
-from app.utils.utils import copy_to_clipboard, print_in_color, before_ask_gpt_display, after_ask_gpt_display
+from kel.utils.cost import calculate_cost
+from kel.utils.utils import copy_to_clipboard, print_in_color, before_ask_gpt_display, after_ask_gpt_display
 
 
 async def ask_openai(client=None, question=None, prompt=None, model=None, temperature=None, max_tokens=None,

@@ -8,7 +8,7 @@ from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 # llm("Tell me about the history of AI")
 
 
-# from app.config import get_configs as config
+# from kel.config import get_configs as config
 #
 # print((lambda x: config.get_default_anthropic_streaming_response())(None))
 

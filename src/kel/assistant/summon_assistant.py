@@ -2,14 +2,14 @@ import os
 import time
 import random
 
-from app.inputs.inputs import get_user_inputs_from_cli
+from kel.inputs.inputs import get_user_inputs_from_cli
 
 from openai import OpenAI
 from rich.progress import Progress
 
-from app.config import get_configs as config
-from app.utils.utils import print_in_color
-from app.constants.constants import openai_response_prefix, openai_assistant_prefix, openai_user_prefix, exit_message
+from kel.config import get_configs as config
+from kel.utils.utils import print_in_color
+from kel.constants.constants import openai_response_prefix, openai_assistant_prefix, openai_user_prefix, exit_message
 
 
 class Assistant:

@@ -1,10 +1,10 @@
 import argparse
 import sys
 
-from app.config.get_configs import get_enable_openai_assistant
-from app.__version__ import __version__
-from app.constants.constants import app_name, app_description, epilog, valid_show_options, valid_ai_company_names
-from app.utils.utils import display_config
+from kel.config.get_configs import get_enable_openai_assistant
+from kel.__version__ import __version__
+from kel.constants.constants import app_name, app_description, epilog, valid_show_options, valid_ai_company_names
+from kel.utils.utils import display_config
 
 
 def get_user_inputs_from_cli():

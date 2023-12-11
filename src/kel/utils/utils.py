@@ -4,8 +4,8 @@ import pyperclip
 from rich.console import Console
 from rich.table import Table
 
-from app.constants.constants import emoji_info, emoji_time, emoji_money, valid_ai_company_official_names
-from app.config import get_configs as config
+from kel.constants.constants import emoji_info, emoji_time, emoji_money, valid_ai_company_official_names
+from kel.config import get_configs as config
 
 
 def copy_to_clipboard(text):

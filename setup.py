@@ -1,17 +1,25 @@
-with open('requirements.txt') as f:
+from setuptools import setup, find_packages
+from src.kel import __version__ as kel_version
+
+with open("requirements.txt") as f:
     required = f.read().splitlines()
 
-from setuptools import setup
 
 setup(
-    name='kel',
-    version='0.0.1',
-    packages=['app', 'app.gpt', 'app.utils', 'app.config', 'app.inputs', 'app.assistant', 'app.constants'],
-    url='https://kel.qainsights.com',
-    license='MIT',
-    author='NaveenKumar Namachivayam',
-    data_files=[('', ['requirements.txt', 'config.toml'])],
-    author_email='',
-    description='AI assistant in your CLI.',
+    name="kel",
+    version=kel_version.__version__,
+    package_dir={"": "src"},
+    packages=find_packages(where="src"),
+    url="https://kel.qainsights.com",
+    license="MIT",
+    author="NaveenKumar Namachivayam",
+    data_files=[("", ["requirements.txt", "config.toml"])],
+    author_email="",
+    description="AI assistant in your CLI.",
     install_requires=required,
+    entry_points={
+        "console_scripts": [
+            "kel = kel.__main__:main",
+        ],
+    },
 )

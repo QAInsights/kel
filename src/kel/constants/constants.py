@@ -1,4 +1,4 @@
-from app.__version__ import __version__
+from kel.__version__ import __version__
 
 valid_ai_company_names = [
     "openai",

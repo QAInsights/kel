@@ -1,5 +1,5 @@
-import app.constants.base_price as base_price
-from app.constants.constants import pricing_error_message
+import kel.constants.base_price as base_price
+from kel.constants.constants import pricing_error_message
 
 
 def calculate_cost(company, model, prompt_tokens=0,

@@ -2,8 +2,8 @@ import time
 
 from anthropic import HUMAN_PROMPT, AI_PROMPT
 
-from app.config import get_configs as config
-from app.utils.utils import copy_to_clipboard, print_in_color, before_ask_gpt_display, after_ask_gpt_display
+from kel.config import get_configs as config
+from kel.utils.utils import copy_to_clipboard, print_in_color, before_ask_gpt_display, after_ask_gpt_display
 
 
 async def ask_anthropic(client, question, company, prompt, model, max_tokens):

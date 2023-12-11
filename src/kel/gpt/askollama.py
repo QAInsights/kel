@@ -5,9 +5,9 @@ from langchain.callbacks.manager import CallbackManager
 from langchain.callbacks.streaming_stdout import StreamingStdOutCallbackHandler
 from langchain.llms import Ollama
 
-from app.config import get_configs as config
-from app.constants.constants import emoji_time, emoji_money, emoji_info
-from app.utils.utils import copy_to_clipboard, print_in_color, before_ask_gpt_display, after_ask_gpt_display
+from kel.config import get_configs as config
+from kel.constants.constants import emoji_time, emoji_money, emoji_info
+from kel.utils.utils import copy_to_clipboard, print_in_color, before_ask_gpt_display, after_ask_gpt_display
 
 
 def ask_ollama(company=None, question=None, model=None, prompt=None, max_tokens=None):

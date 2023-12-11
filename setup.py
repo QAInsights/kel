@@ -1,12 +1,12 @@
 from setuptools import setup, find_packages
-
+from src.kel import __version__ as kel_version
 with open("requirements.txt") as f:
     required = f.read().splitlines()
 
 
 setup(
     name="kel",
-    version="0.0.2",
+    version=kel_version.__version__,
     package_dir={"": "src"},
     packages=find_packages(where="src"),
     url="https://kel.qainsights.com",

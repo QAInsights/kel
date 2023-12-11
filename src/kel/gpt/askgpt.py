@@ -1,12 +1,12 @@
 from anthropic import AsyncAnthropic
 from openai import AsyncOpenAI
 
-from app.config import get_configs as config
-from app.gpt.askanthropic import ask_anthropic
-from app.gpt.askollama import ask_ollama
-from app.gpt.askopenai import ask_openai
-from app.inputs.gatekeeper import gatekeeper_tasks
-from app.inputs.inputs import get_user_inputs_from_cli
+from kel.config import get_configs as config
+from kel.gpt.askanthropic import ask_anthropic
+from kel.gpt.askollama import ask_ollama
+from kel.gpt.askopenai import ask_openai
+from kel.inputs.gatekeeper import gatekeeper_tasks
+from kel.inputs.inputs import get_user_inputs_from_cli
 
 
 class AICompany:

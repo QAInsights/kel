@@ -6,7 +6,7 @@ Kel is your AI assistant in your CLI.
 
 ## Demo
 
-<a href="https://asciinema.org/a/626190" target="_blank"><img src="https://asciinema.org/a/626190.svg" /></a>
+![Kel-Demo](https://raw.githubusercontent.com/QAInsights/kel-docs/main/static/img/kel-demo.gif)
 
 ## Features
 

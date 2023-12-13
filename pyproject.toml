@@ -1,0 +1,18 @@
+[project]
+name = "kel-cli"
+version = "0.0.4"
+authors = [
+  { name="NaveenKumar Namachivayam", email="contact@qainsights.com" },
+]
+description = "AI Assistant for your CLI"
+readme = "README.md"
+requires-python = ">=3.6"
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: OS Independent",
+]
+
+[project.urls]
+Homepage = "https://github.com/qainsights/kel"
+Issues = "https://github.com/qainsights/kel/issues"

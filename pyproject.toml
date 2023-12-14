@@ -1,0 +1,40 @@
+[tool.poetry]
+name = "kel"
+version = "0.1.0"
+description = "AI assistant in your CLI."
+authors = ["NaveenKumar Namachivayam <catch.nkn@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.10"
+annotated-types = "^0.6.0"
+anyio = "^4.1.0"
+certifi = "^2023.11.17"
+click = "^8.1.7"
+colorama = "^0.4.6"
+distro = "^1.8.0"
+exceptiongroup = "^1.2.0"
+h11 = "^0.14.0"
+httpcore = "^1.0.2"
+httpx = "^0.25.2"
+idna = "^3.6"
+markdown-it-py = "^3.0.0"
+mdurl = "^0.1.2"
+openai = "^1.3.9"
+pydantic = "^2.5.2"
+pydantic-core = "^2.14.5"
+pygments = "^2.17.2"
+pyperclip = "^1.8.2"
+rich = "^13.7.0"
+sniffio = "^1.3.0"
+toml = "^0.10.2"
+tqdm = "^4.66.1"
+typing-extensions = "^4.9.0"
+anthropic = "^0.7.8"
+langchain = "^0.0.350"
+
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"

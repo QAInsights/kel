@@ -1,8 +1,10 @@
 [tool.poetry]
-name = "kel"
-version = "0.1.0"
+name = "kel-cli"
+version = "0.5.0"
 description = "AI assistant in your CLI."
-authors = ["NaveenKumar Namachivayam <catch.nkn@gmail.com>"]
+authors = [
+  { name="NaveenKumar Namachivayam", email="contact@qainsights.com" },
+]
 license = "MIT"
 readme = "README.md"
 
@@ -38,3 +40,7 @@ langchain = "^0.0.350"
 [build-system]
 requires = ["poetry-core"]
 build-backend = "poetry.core.masonry.api"
+
+[project.urls]
+Homepage = "https://github.com/qainsights/kel"
+Issues = "https://github.com/qainsights/kel/issues"

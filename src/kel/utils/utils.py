@@ -109,9 +109,22 @@ def display_config(args=None):
 
     table.add_column("Name", style="cyan")
     table.add_column("Value", style="green")
+    print(args)
 
-    for key, value in config.get_config_by_key(args).items():
-        table.add_row(str(key), str(value))
+    if args == "all":
+        for key, value in config.get_all_config_keys_values().items():
+            if type(key) is str:
+                table.add_row(str(key), "")
+                table.add_row("--"*15, "--"*15)
+
+            if type(value) is dict:
+                for k, v in value.items():
+                    table.add_row(str(k), str(v))
+                table.add_row("--" * 15, "--" * 15)
+
+    else:
+        for key, value in config.get_config_by_key(args).items():
+            table.add_row(str(key), str(value))
     console = Console()
     console.print(table)
 

@@ -35,6 +35,18 @@ except Exception as e:
     sys.exit(1)
 
 
+def get_all_config_keys_values():
+    """
+    Get all config keys values
+    Returns:
+
+    """
+    all_config_keys_values = {}
+    for k, v in config.items():
+        all_config_keys_values.update({k: v})
+    return all_config_keys_values
+
+
 def get_config_by_key(key):
     """
     Get the config by key

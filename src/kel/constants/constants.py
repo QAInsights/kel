@@ -1,5 +1,4 @@
 from kel.__version__ import __version__
-from kel.utils.models import get_google_models
 
 valid_ai_company_names = [
     "openai",
@@ -8,14 +7,14 @@ valid_ai_company_names = [
     "google"
 ]
 
-## MODELS START ##
-
 valid_ai_company_official_names = [
     "OpenAI",
     "Anthropic",
     "Ollama",
     "Google"
 ]
+
+## MODELS START ##
 
 valid_openai_chat_models = [
     "gpt-4",
@@ -37,7 +36,9 @@ valid_anthropic_chat_models = [
     "claude-2"
 ]
 
-valid_google_models = get_google_models()
+valid_google_models = [
+    "models/gemini-pro"
+]
 
 ## MODELS END ##
 
@@ -50,7 +51,8 @@ valid_show_options = [
     "companies",
     "general",
     "style",
-    "stats"
+    "stats",
+    "all"
 ]
 
 

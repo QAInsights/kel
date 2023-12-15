@@ -1,10 +1,13 @@
 from kel.__version__ import __version__
+from kel.utils.models import get_google_models
 
 valid_ai_company_names = [
     "openai",
     "anthropic",
     "ollama"
 ]
+
+## MODELS START ##
 
 valid_ai_company_official_names = [
     "OpenAI",
@@ -32,6 +35,9 @@ valid_anthropic_chat_models = [
     "claude-2"
 ]
 
+valid_google_models = get_google_models()
+
+## MODELS END ##
 valid_api_keys_env = {
     "openai": "OPENAI_API_KEY",
     "anthropic": "ANTHROPIC_API_KEY"

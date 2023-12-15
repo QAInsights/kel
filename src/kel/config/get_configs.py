@@ -426,3 +426,42 @@ def get_info_color():
 
     """
     return config.get("style", {}).get("info_color", "cyan")
+
+def get_default_google_model_name():
+    """
+    Get the default google model name
+    Returns:
+
+    """
+    return config.get("google", {}).get("default_google_model_name", "gemini-pro")
+
+
+def get_default_google_streaming_response():
+    """
+    Get the default google streaming response
+    Returns:
+
+    """
+    return config.get("google", {}).get("default_google_streaming_response", False)
+
+
+def get_default_google_prompt():
+    """
+    Get the default google prompt
+    Returns:
+
+    """
+    return config.get("google", {}).get("default_google_prompt",
+                                        "You are an expert in software engineering. You are helping a developer.")
+
+
+def get_google_key():
+    """
+    Get the openai key
+    Returns:
+
+    """
+    google_key = os.getenv("GOOGLE_API_KEY")
+    if not google_key:
+        sys.exit("Error: GOOGLE_API_KEY is not set in the environment variable.")
+    return google_key

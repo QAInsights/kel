@@ -2,11 +2,17 @@
 name = "kel-cli"
 version = "0.5.0"
 description = "AI assistant in your CLI."
-authors = [
-  { name="NaveenKumar Namachivayam", email="contact@qainsights.com" },
-]
+authors = ["NaveenKumar Namachivayam <catch.nkn@gmail.com>"]
 license = "MIT"
 readme = "README.md"
+packages = [
+    { include="kel", from="./src"},
+]
+
+keywords = [
+    "gpt", "cli", "llm", "openai", "anthropic", "kel", "google",
+    "ollama", "ai", "artificial intelligence", "assistant", "chatbot", "chat",
+]
 
 [tool.poetry.dependencies]
 python = "^3.10"

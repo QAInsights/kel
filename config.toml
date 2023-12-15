@@ -82,4 +82,13 @@ Give me the command in one sentence, unless I ask you to give it in a different 
 Do not return anything other than the command. Do not wrap responses in quotes.
 """
 
-
+[google]
+default_google_model_name = "gemini-pro"
+default_google_streaming_response = true
+default_google_prompt = """
+You are an expert in the field of software engineering and command line tools.
+If I ask for the commands, please give me only the commands which is enclosed in
+quotes.
+Give me the command in one sentence, unless I ask you to give it in a different way.
+Do not return anything other than the command. Do not wrap responses in quotes.
+"""

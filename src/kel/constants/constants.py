@@ -4,7 +4,8 @@ from kel.utils.models import get_google_models
 valid_ai_company_names = [
     "openai",
     "anthropic",
-    "ollama"
+    "ollama",
+    "google"
 ]
 
 ## MODELS START ##
@@ -12,7 +13,8 @@ valid_ai_company_names = [
 valid_ai_company_official_names = [
     "OpenAI",
     "Anthropic",
-    "Ollama"
+    "Ollama",
+    "Google"
 ]
 
 valid_openai_chat_models = [
@@ -38,6 +40,7 @@ valid_anthropic_chat_models = [
 valid_google_models = get_google_models()
 
 ## MODELS END ##
+
 valid_api_keys_env = {
     "openai": "OPENAI_API_KEY",
     "anthropic": "ANTHROPIC_API_KEY"

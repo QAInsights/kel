@@ -427,6 +427,7 @@ def get_info_color():
     """
     return config.get("style", {}).get("info_color", "cyan")
 
+
 def get_default_google_model_name():
     """
     Get the default google model name
@@ -465,3 +466,30 @@ def get_google_key():
     if not google_key:
         sys.exit("Error: GOOGLE_API_KEY is not set in the environment variable.")
     return google_key
+
+
+def get_google_prompt_feedback():
+    """
+    Get the prompt feedback
+    Returns:
+
+    """
+    return config.get("google", {}).get("enable_prompt_feedback", False)
+
+
+def get_view_all_response_candidates():
+    """
+    Get the view all response candidates
+    Returns:
+
+    """
+    return config.get("google", {}).get("view_all_response_candidates", False)
+
+
+def get_google_safety_settings():
+    """
+    Get the Google safety settings
+    Returns:
+
+    """
+    return config.get("google", {}).get("safety_settings", None)

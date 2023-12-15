@@ -42,7 +42,6 @@ Open the config file to customize the settings.
 
 Update the LLM API keys in the OS environment variables. 
 
-```bash
 ## Usage
 
 ```bash

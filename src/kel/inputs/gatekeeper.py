@@ -4,7 +4,7 @@ import sys
 from kel.config import get_configs as config
 from kel.utils.utils import print_in_color
 from kel.constants.constants import valid_ai_company_names, valid_openai_chat_models, valid_anthropic_chat_models, \
-    valid_api_keys_env
+    valid_api_keys_env, valid_google_models
 
 
 def check_api_key(company_name=None):
@@ -29,6 +29,13 @@ def validate_chat_model(company_name=None, model_name=None):
                 print_in_color(f"Error: {model_name} is not a valid {company_name} chat model.",
                                config.get_error_color())
                 print_in_color(f"Valid {company_name} chat models are: {valid_openai_chat_models}",
+                               config.get_info_color())
+                sys.exit(1)
+        elif company_name == "google":
+            if model_name not in valid_google_models:
+                print_in_color(f"Error: {model_name} is not a valid {company_name} chat model.",
+                               config.get_error_color())
+                print_in_color(f"Valid {company_name} chat models are: {valid_google_models}",
                                config.get_info_color())
                 sys.exit(1)
         elif company_name == "anthropic":
@@ -56,6 +63,8 @@ def get_model_name(company_name):
             return config.get_anthropic_default_model_name()
         elif company_name == "ollama":
             return config.get_ollama_default_model_name()
+        elif company_name == "google":
+            return config.get_default_google_model_name()
         else:
             print_in_color(f"Error in setting up the model. Please check the config file.", config.get_error_color())
             sys.exit(1)
@@ -80,7 +89,7 @@ def gatekeeper_tasks(question=None, prompt=None, model=None, temperature=None, m
                        config.get_warning_color())
         sys.exit(1)
 
-    if company_name.lower() == "openai" or company_name.lower() == "anthropic":
+    if company_name.lower() == "openai" or company_name.lower() == "anthropic" or company_name.lower() == "google":
         check_api_key(company_name=company_name)
 
     if model is None:

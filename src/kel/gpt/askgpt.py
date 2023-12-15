@@ -1,8 +1,10 @@
 from anthropic import AsyncAnthropic
 from openai import AsyncOpenAI
+import google.generativeai as genai
 
 from kel.config import get_configs as config
 from kel.gpt.askanthropic import ask_anthropic
+from kel.gpt.askgoogle import ask_google
 from kel.gpt.askollama import ask_ollama
 from kel.gpt.askopenai import ask_openai
 from kel.inputs.gatekeeper import gatekeeper_tasks
@@ -27,6 +29,8 @@ class GPTModel(AICompany):
 
         if company_name == "openai":
             self.client = AsyncOpenAI(api_key=self.model_api_key)
+        elif company_name == "google":
+            self.client = genai.configure(api_key=self.model_api_key)
         elif company_name == "anthropic":
             self.client = AsyncAnthropic()
 
@@ -43,6 +47,14 @@ class GPTModel(AICompany):
 
         ask_ollama(company=company, question=question, prompt=prompt, model=model, max_tokens=max_tokens)
 
+    def call_google(self, question=None, prompt=None, model=None, temperature=None, max_tokens=None, company=None):
+        if model is None:
+            model = config.get_default_google_model_name()
+        if prompt is None:
+            prompt = config.get_default_google_prompt()
+
+        ask_google(client=self.client, question=question, prompt=prompt, model=model, temperature=temperature)
+
     async def call_anthropic(self, question=None, prompt=None, company=None, model=None, max_tokens=None):
         if model is None:
             model = config.get_anthropic_default_model_name()
@@ -51,7 +63,8 @@ class GPTModel(AICompany):
         if prompt is None:
             prompt = config.get_anthropic_default_prompt()
 
-        await ask_anthropic(client=self.client, question=question, prompt=prompt, company=company, model=model, max_tokens=max_tokens)
+        await ask_anthropic(client=self.client, question=question, prompt=prompt, company=company, model=model,
+                            max_tokens=max_tokens)
 
     async def ask_gpt(self, question=None, prompt=None, model=None, temperature=None, max_tokens=None,
                       company=None, assistant=None, file=None):
@@ -79,7 +92,8 @@ class GPTModel(AICompany):
             max_tokens = config.get_openai_max_tokens()
         if prompt is None:
             prompt = config.get_openai_default_prompt()
-        await ask_openai(client=self.client, company=company, question=question, prompt=prompt, model=model, temperature=temperature,
+        await ask_openai(client=self.client, company=company, question=question, prompt=prompt, model=model,
+                         temperature=temperature,
                          max_tokens=max_tokens)
 
 
@@ -143,3 +157,22 @@ async def gpt() -> None:
             model=model,
             max_tokens=max_tokens
         )
+
+    elif company_name == "google":
+        google = GPTModel(
+            company_name=company_name,
+            model_name=model,
+            model_api_key=config.get_google_key(),
+            model_endpoint=None,
+            model_prompt=prompt,
+            model_max_token=max_tokens,
+            model_temperature=None
+        )
+
+        google.call_google(
+            question=question,
+            prompt=prompt,
+            model=model,
+            temperature=None,
+            max_tokens=None,
+            company=company_name)

@@ -1,10 +1,10 @@
 [companies]
-supported_companies = ["OpenAI", "Anthropic", "Ollama"]
+supported_companies = ["OpenAI", "Anthropic", "Ollama", "Google"]
 
 [general]
 protocol = "https"
 default_language = "english"
-default_company_name = "OpenAI"
+default_company_name = "Google"
 copy_to_clipboard = true
 display_llm_company_model_name = true
 
@@ -83,12 +83,35 @@ Do not return anything other than the command. Do not wrap responses in quotes.
 """
 
 [google]
-default_google_model_name = "gemini-pro"
+default_google_model_name = "models/gemini-pro"
 default_google_streaming_response = true
 default_google_prompt = """
 You are an expert in the field of software engineering and command line tools.
 If I ask for the commands, please give me only the commands which is enclosed in
 quotes.
+Politely decline to answer for other questions.
 Give me the command in one sentence, unless I ask you to give it in a different way.
 Do not return anything other than the command. Do not wrap responses in quotes.
 """
+enable_prompt_feedback = true
+view_all_response_candidates = true
+[google.safety_settings]
+# enter the setting in the format of `category=threshold` e.g. hate_speech=3
+# acceptable threshold values are [1, 2, 3, 4]
+hate_speech=1
+harassment=1
+
+
+##############################################
+#   Thresholds for safety settings
+#   ----------------------------------------------
+#   BLOCK_LOW_AND_ABOVE = 1
+#   BLOCK_MEDIUM_AND_ABOVE = 2
+#   BLOCK_ONLY_HIGH = 3
+#   BLOCK_NONE = 4
+
+#   For categories, refer to
+#   ----------------------------------------------
+#   https://ai.google.dev/api/python/google/ai/generativelanguage/HarmCategory
+
+##############################################

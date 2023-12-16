@@ -21,7 +21,7 @@ def copy_to_clipboard(text):
         pyperclip.copy(text)
         # Copy the response to the clipboard and remove double quotes
         pyperclip.copy(text.strip().replace("\"", ""))
-        print("Response copied to clipboard.", end="\n")
+        print("📝 Response copied to clipboard.", end="\n")
     except Exception as e:
         print("Error copying to clipboard")
         print(e)
@@ -109,7 +109,6 @@ def display_config(args=None):
 
     table.add_column("Name", style="cyan")
     table.add_column("Value", style="green")
-    print(args)
 
     if args == "all":
         for key, value in config.get_all_config_keys_values().items():
@@ -121,7 +120,6 @@ def display_config(args=None):
                 for k, v in value.items():
                     table.add_row(str(k), str(v))
                 table.add_row("--" * 15, "--" * 15)
-
     else:
         for key, value in config.get_config_by_key(args).items():
             table.add_row(str(key), str(value))

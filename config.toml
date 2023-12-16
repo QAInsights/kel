@@ -93,7 +93,7 @@ Politely decline to answer for other questions.
 Give me the command in one sentence, unless I ask you to give it in a different way.
 Do not return anything other than the command. Do not wrap responses in quotes.
 """
-enable_prompt_feedback = true
+enable_prompt_feedback = false
 view_all_response_candidates = true
 [google.safety_settings]
 # enter the setting in the format of `category=threshold` e.g. hate_speech=3

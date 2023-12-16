@@ -102,7 +102,7 @@ def get_user_inputs_from_cli():
     args = parser.parse_args()
 
     if args.show in valid_show_options or args.show in valid_ai_company_names:
-        display_config(args.show)
+        display_config(args.show.lower())
     else:
         if args.show:
             print(f"Invalid show option: {args.show}. Valid options are: {valid_show_options}")

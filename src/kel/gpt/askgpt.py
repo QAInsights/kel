@@ -53,7 +53,7 @@ class GPTModel(AICompany):
         if prompt is None:
             prompt = config.get_default_google_prompt()
 
-        ask_google(client=self.client, question=question, prompt=prompt, model=model, temperature=temperature)
+        ask_google(client=self.client, company=company, question=question, prompt=prompt, model=model, temperature=temperature)
 
     async def call_anthropic(self, question=None, prompt=None, company=None, model=None, max_tokens=None):
         if model is None:

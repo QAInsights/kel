@@ -2,9 +2,9 @@ import argparse
 import sys
 
 from kel.config.get_configs import get_enable_openai_assistant
-from kel.__version__ import __version__
+
 from kel.constants.constants import app_name, app_description, epilog, valid_show_options, valid_ai_company_names
-from kel.utils.utils import display_config
+from kel.utils.utils import display_config, cli_art
 
 
 def get_user_inputs_from_cli():
@@ -95,7 +95,7 @@ def get_user_inputs_from_cli():
             '-v',
             '--version',
             action='version',
-            version='%(prog)s {version}'.format(version=__version__),
+            version=''.format(version=cli_art()),
             help='show version'
         )
 

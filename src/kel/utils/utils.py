@@ -6,7 +6,7 @@ from rich.table import Table
 
 from kel.constants.constants import emoji_info, emoji_time, emoji_money, valid_ai_company_official_names
 from kel.config import get_configs as config
-
+from kel.__version__ import __version__
 
 def copy_to_clipboard(text):
     """
@@ -114,7 +114,7 @@ def display_config(args=None):
         for key, value in config.get_all_config_keys_values().items():
             if type(key) is str:
                 table.add_row(str(key), "")
-                table.add_row("--"*15, "--"*15)
+                table.add_row("--" * 15, "--" * 15)
 
             if type(value) is dict:
                 for k, v in value.items():
@@ -127,3 +127,14 @@ def display_config(args=None):
     console.print(table)
 
     sys.exit()
+
+
+def cli_art():
+    # Print the ascii art for the word `kel`
+    print_in_color(rf"""
+    |‾‾| /‾‾/   |‾‾‾‾‾‾|    |‾‾|   
+    |  |/  /    |  (‾‾‾     |  |
+    |     (     |   ‾‾‾|    |  |
+    |  |\  \    |  (___     |  |___
+    |__| \__\   |______|    |______|    v{__version__}
+      """, config.get_info_color())

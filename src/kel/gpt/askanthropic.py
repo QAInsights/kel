@@ -1,3 +1,4 @@
+from io import StringIO
 import time
 
 from anthropic import HUMAN_PROMPT, AI_PROMPT
@@ -17,7 +18,7 @@ async def ask_anthropic(client, question, company, prompt, model, max_tokens):
     :param max_tokens:
     :return:
     """
-    calc_token = ""
+    calc_token = StringIO()
     stream = config.get_default_anthropic_streaming_response()
     before_ask_gpt_display(company=company, model=model)
 
@@ -38,8 +39,8 @@ async def ask_anthropic(client, question, company, prompt, model, max_tokens):
         response_time = time.time() - start_time
         async for completion in response:
             print(f"{completion.completion}", end="", flush=True)
-            calc_token += str(completion.completion)
-        calc_token += question
+            calc_token.write(str(completion.completion))
+        calc_token.write(question)
 
     else:
         start_time = time.time()
@@ -58,9 +59,10 @@ async def ask_anthropic(client, question, company, prompt, model, max_tokens):
         if config.get_copy_to_clipboard():
             copy_to_clipboard(response.completion)
 
-        calc_token = question + response.completion
+        calc_token.write(question)
+        calc_token.write(response.completion)
         print_in_color(f"{response.completion}", config.get_response_color(), end="\n")
 
-    calc_token = await client.count_tokens(calc_token)
+    calc_token = await client.count_tokens(calc_token.getvalue())
     after_ask_gpt_display(response_time=response_time, end=" ")
     after_ask_gpt_display(consumed_tokens=calc_token, end=" ")

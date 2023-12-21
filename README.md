@@ -15,7 +15,7 @@ Kel is your AI assistant in your CLI.
 
 - Free and Open Source
 - Bring your own API keys
-- Supports multiple Large Language Models (LLMs) like GPT-4, Claude, ollama2, etc.
+- Supports multiple Large Language Models (LLMs) like GPT-4, Claude, ollama2, and Google.
 - Supports OpenAI assistants to chat with your documents
 - Customizable
 

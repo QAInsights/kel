@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "kel-cli"
-version = "0.0.6"
+version = "0.0.7"
 description = "AI assistant in your CLI."
 authors = ["NaveenKumar Namachivayam <catch.nkn@gmail.com>"]
 license = "MIT"
@@ -51,3 +51,8 @@ build-backend = "poetry.core.masonry.api"
 [project.urls]
 Homepage = "https://github.com/qainsights/kel"
 Issues = "https://github.com/qainsights/kel/issues"
+
+[tool.poetry.scripts]
+rf_distributor = 'kel.__main__:main'
+
+

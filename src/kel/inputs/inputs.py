@@ -47,6 +47,15 @@ def get_user_inputs_from_cli():
         required=False
     )
 
+    if '-v' in sys.argv or '--version' in sys.argv:
+        parser.add_argument(
+            '-v',
+            '--version',
+            action='version',
+            version=''.format(version=cli_art()),
+            help='show version'
+        )
+
     if '-s' not in sys.argv and '--show' not in sys.argv:
         parser.add_argument(
             'question',
@@ -91,13 +100,7 @@ def get_user_inputs_from_cli():
             required=False
         )
 
-        parser.add_argument(
-            '-v',
-            '--version',
-            action='version',
-            version=''.format(version=cli_art()),
-            help='show version'
-        )
+
 
     args = parser.parse_args()
 

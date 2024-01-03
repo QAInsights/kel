@@ -14,12 +14,12 @@ def get_config_file_location():
     """
     config_file = os.getenv("KEL_CONFIG_FILE")
     try:
-        if config_file:
-            return config_file
-        elif os.path.exists(f"~/.{app_name.lower()}/config.toml"):
-            return os.path.expanduser(f"~/{app_name.lower()}/config.toml")
+        if config_file and os.path.exists(os.path.expanduser(config_file)):
+            return os.path.expanduser(config_file)
+        elif os.path.exists(os.path.expanduser(f"~/.{app_name.lower()}/config.toml")):
+            return os.path.expanduser(f"~/.{app_name.lower()}/config.toml")
         else:
-            return "./config.toml"
+            return os.path.expanduser("./config.toml")
     except Exception as e:
         print_in_color(f"Error: {e}", get_error_color())
         sys.exit(1)

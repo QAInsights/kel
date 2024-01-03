@@ -16,8 +16,8 @@ def get_config_file_location():
     try:
         if config_file:
             return config_file
-        elif os.path.exists(f"~/.{app_name}/config.toml"):
-            return os.path.expanduser(f"~/.config/{app_name}/config.toml")
+        elif os.path.exists(f"~/.{app_name.lower()}/config.toml"):
+            return os.path.expanduser(f"~/{app_name.lower()}/config.toml")
         else:
             return "./config.toml"
     except Exception as e:
